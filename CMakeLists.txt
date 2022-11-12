@@ -14,3 +14,6 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+add_executable(tracey src/tracey.cpp)
+target_include_directories(tracey PRIVATE include/tracey)
