@@ -15,12 +15,18 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-find_package(Doxygen)
-if(Doxygen_FOUND)
-  add_subdirectory(doc)
-else()
-  message(STATUS "Doxygen not found, not building docs")
+option(BUILD_DOCUMENTATION "Build documentation" ON)
+
+if(BUILD_DOCUMENTATION)
+message(STATUS "Building documentation")
+  find_package(Doxygen)
+  if(Doxygen_FOUND)
+    add_subdirectory(doc)
+  else()
+    message(STATUS "Doxygen not found, not building docs")
+  endif()
 endif()
+
 
 add_executable(tracey src/tracey.cpp)
 target_include_directories(tracey PRIVATE include/tracey)
