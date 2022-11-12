@@ -10,6 +10,23 @@ simulates real-world illumination.
 - Member 3
 - Member 4
 
+## Build instructions
+
+The project uses CMake, thus the standard way of building project is as follows:
+
+```bash
+cmake -S . -B build
+cmake --build build
+```
+
+Building documentation needs Doxygen to be installed. Building documentation:
+
+```bash
+cmake --build --target doc
+```
+
+The documentation will be built to `build/doc/html`.
+
 ## Repository organization
 
 Your project implementation should follow the skelaton organization in this
@@ -29,7 +46,6 @@ assessment of each group member.
 The course staff should be able to easily compile the project work using
 makefile and related instructions provided in the git repository. The final
 output should be in the **master branch** of the git repository.
-
 
 ## Working practices
 
