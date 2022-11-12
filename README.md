@@ -25,7 +25,8 @@ Building documentation needs Doxygen to be installed. Building documentation:
 cmake --build --target doc
 ```
 
-The documentation will be built to `build/doc/html`.
+The documentation will be built to `build/doc/html`. Also, more or less
+up-to-day documentation is found from <https://tracey-docs.netlify.app/>.
 
 Building tests with target `tests`:
 
