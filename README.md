@@ -1,7 +1,7 @@
 # Tracey - The Next Generation Path Tracer
 
-This is the template for the projects. Please copy the project description here. 
-You can use Markdown language to render it as formatted **HTML** file.
+The project aims to produce software that renders a three-dimensional image that
+simulates real-world illumination.
 
 # Group
 - Jukka Aho
