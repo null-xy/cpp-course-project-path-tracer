@@ -27,6 +27,14 @@ cmake --build --target doc
 
 The documentation will be built to `build/doc/html`.
 
+Building tests with target `tests`:
+
+```bash
+cmake --build build --target tests
+cd build
+ctest
+```
+
 ## Repository organization
 
 Your project implementation should follow the skelaton organization in this
