@@ -33,3 +33,9 @@ target_include_directories(Tracey INTERFACE include/tracey)
 add_executable(tracey src/tracey.cpp)
 target_link_libraries(tracey PRIVATE Tracey)
 
+option(BUILD_EXAMPLES "Build examples" ON)
+
+if(BUILD_EXAMPLES)
+  message(STATUS "Building examples")
+  add_subdirectory(examples)
+endif()
