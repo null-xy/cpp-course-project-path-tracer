@@ -39,3 +39,11 @@ if(BUILD_EXAMPLES)
   message(STATUS "Building examples")
   add_subdirectory(examples)
 endif()
+
+option(BUILD_TESTS "Build tests" ON)
+
+if(BUILD_TESTS)
+  message(STATUS "Building tests")
+  include(CTest)
+  add_subdirectory(tests)
+endif()
