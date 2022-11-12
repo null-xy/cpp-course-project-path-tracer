@@ -6,9 +6,8 @@ simulates real-world illumination.
 ## Group
 
 - Jukka Aho
-- Member 2
+- Aleksi Kääriäinen
 - Member 3
-- Member 4
 
 ## Build instructions
 
