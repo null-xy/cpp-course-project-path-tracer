@@ -1,5 +1,4 @@
 #pragma once
 
 #include "cli.hpp"
-
-namespace Tracey {}
+#include "constants.hpp"
