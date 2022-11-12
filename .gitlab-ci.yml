@@ -1,0 +1,9 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - apt-get install -y cmake
+    - cmake -S . -B build
+    - cmake --build build
