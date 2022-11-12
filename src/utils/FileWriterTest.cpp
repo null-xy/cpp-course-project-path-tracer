@@ -1,4 +1,5 @@
 #include <eigen3/Eigen/Dense>
+#include <iostream>
 
 #include "../geometry/Sphere.hpp"
 #include "../ray/Ray.hpp"
@@ -7,17 +8,19 @@
 using Eigen::Vector3f;
 
 Vector3f ray_color(Sphere& s, Ray& r) {
+  // if ray hits ball, return red
   if (s.Intersect(r)) {
     return Vector3f(1.0, 0.0, 0.0);
   }
 
+  // create a color gradient of blue
   Vector3f unit = r.GetDirection().normalized();
   auto t = 0.5 * (unit(1) + 1.0);
   return (1.0 - t) * Vector3f(1.0, 1.0, 1.0) + t * Vector3f(0.5, 0.7, 1.0);
 }
 
 // compile instructions:
-// g++ FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Sphere.cpp
+// g++ FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp ../geometry/Sphere.cpp -o FileWriterTest.o
 // -o FileWriterTest to save as file, run the compiled file with '> o.ppm'
 int main() {
   std::vector<std::vector<Vector3f>> image;
@@ -36,7 +39,7 @@ int main() {
   Vector3f origin(0.0, 0.0, 0.0);
   Vector3f horizontal(viewportWidth, 0.0, 0.0);
   Vector3f vertical(0.0, viewPortHeight, 0.0);
-  auto bottomLeftCorner =
+  Vector3f bottomLeftCorner =
       origin - horizontal / 2 - vertical / 2 - Vector3f(0.0, 0.0, focalLength);
 
   for (int j = height - 1; j >= 0; j--) {
