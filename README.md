@@ -22,7 +22,7 @@ cmake --build build
 Building documentation needs Doxygen to be installed. Building documentation:
 
 ```bash
-cmake --build --target doc
+cmake --build build --target doc
 ```
 
 The documentation will be built to `build/doc/html`. Also, more or less
