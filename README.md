@@ -27,6 +27,11 @@ cmake --build --target doc
 
 The documentation will be built to `build/doc/html`. Also, more or less
 up-to-day documentation is found from <https://tracey-docs.netlify.app/>.
+Deployment to Netlify can be done with a command:
+
+```bash
+netlify deploy --prod -d build/doc/html
+```
 
 Building tests with target `tests`:
 
