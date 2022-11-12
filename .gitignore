@@ -46,6 +46,7 @@ Mkfile.old
 dkms.conf
 
 .vscode
+/build
 
 # output files
 *.ppm

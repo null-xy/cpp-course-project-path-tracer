@@ -1,26 +1,52 @@
 #include <eigen3/Eigen/Dense>
 
+#include "../geometry/Sphere.hpp"
+#include "../ray/Ray.hpp"
 #include "FileWriter.hpp"
 
 using Eigen::Vector3f;
 
-//compile instructions:
-//g++ FileWriterTest.cpp FileWriter.cpp -o FileWriterTest
-//to save as file, run the compiled file with '> o.ppm'
-int main() {
+Vector3f ray_color(Sphere& s, Ray& r) {
+  if (s.Intersect(r)) {
+    return Vector3f(1.0, 0.0, 0.0);
+  }
 
+  Vector3f unit = r.GetDirection().normalized();
+  auto t = 0.5 * (unit(1) + 1.0);
+  return (1.0 - t) * Vector3f(1.0, 1.0, 1.0) + t * Vector3f(0.5, 0.7, 1.0);
+}
+
+// compile instructions:
+// g++ FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Sphere.cpp
+// -o FileWriterTest to save as file, run the compiled file with '> o.ppm'
+int main() {
   std::vector<std::vector<Vector3f>> image;
-  int height = 512; 
-  int width = 256;
+  Sphere ball(Vector3f(0.0, 0.0, -1.0), 0.5);
+
+  // image
+  float aspectRatio = 16.0 / 9.0;
+  int width = 400;
+  int height = static_cast<int>(width / aspectRatio);
+
+  // camera
+  auto viewPortHeight = 2.0;
+  auto viewportWidth = aspectRatio * viewPortHeight;
+  auto focalLength = 1.0;
+
+  Vector3f origin(0.0, 0.0, 0.0);
+  Vector3f horizontal(viewportWidth, 0.0, 0.0);
+  Vector3f vertical(0.0, viewPortHeight, 0.0);
+  auto bottomLeftCorner =
+      origin - horizontal / 2 - vertical / 2 - Vector3f(0.0, 0.0, focalLength);
 
   for (int j = height - 1; j >= 0; j--) {
-    std::vector<Vector3f> pixelRow; 
+    std::vector<Vector3f> pixelRow;
     for (int i = 0; i < width; i++) {
-      auto r = float(i) / (width - 1);
-      auto g = float(j) / (height - 1);
-      auto b = 0.55;
-      
-      Vector3f color(r, g, b);
+      auto u = double(i) / (width - 1);
+      auto v = double(j) / (height - 1);
+      Ray r(origin, bottomLeftCorner + u * horizontal + v * vertical - origin);
+
+      Vector3f color = ray_color(ball, r);
       pixelRow.push_back(color);
     }
     image.insert(image.begin(), pixelRow);
