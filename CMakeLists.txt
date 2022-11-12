@@ -27,6 +27,9 @@ message(STATUS "Building documentation")
   endif()
 endif()
 
+add_library(Tracey INTERFACE)
+target_include_directories(Tracey INTERFACE include/tracey)
 
 add_executable(tracey src/tracey.cpp)
-target_include_directories(tracey PRIVATE include/tracey)
+target_link_libraries(tracey PRIVATE Tracey)
+
