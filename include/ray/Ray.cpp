@@ -1,4 +1,5 @@
 #include "Ray.hpp"
+#include <iostream>
 
 Ray::Ray() {};
 
@@ -15,4 +16,8 @@ Vector3f Ray::GetDirection() const {
 
 Vector3f Ray::At(float f) const {
     return origin_ + direction_ * f;
+}
+
+int main() {
+    std::cout << "compiled" << std::endl;
 }

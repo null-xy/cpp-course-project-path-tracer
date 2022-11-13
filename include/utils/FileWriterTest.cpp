@@ -22,8 +22,7 @@ Vector3f RayColor(Ray& r, const Geometry& scene) {
 }
 
 // compile instructions:
-// FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp
-// ../geometry/Sphere.cpp ../geometry/GeometryList.cpp -o FileWriterTest.o to
+// FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp ../geometry/Sphere.cpp ../geometry/GeometryList.cpp -o FileWriterTest.o to
 // save as file, run the compiled file with '> o.ppm'
 int main() {
   std::vector<std::vector<Vector3f>> image;
