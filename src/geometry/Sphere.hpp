@@ -9,10 +9,12 @@
 class Sphere : public Geometry {
  public:
   Sphere(Vector3f origin, float radius);
-  bool Intersect(Ray& ray) const;
+  bool Intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const;
+  Vector3f GetOrigin() const;
   float GetRadius() const;
 
  private:
+  Vector3f origin_;
   float radius_;
 };
 

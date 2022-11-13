@@ -1,35 +1,42 @@
 #include <eigen3/Eigen/Dense>
 #include <iostream>
+#include <memory>
 
+#include "../geometry/GeometryList.hpp"
 #include "../geometry/Sphere.hpp"
 #include "../ray/Ray.hpp"
 #include "FileWriter.hpp"
 
 using Eigen::Vector3f;
 
-Vector3f ray_color(Sphere& s, Ray& r) {
-  // if ray hits ball, return red
-  if (s.Intersect(r)) {
-    return Vector3f(1.0, 0.0, 0.0);
-  }
+const double infinity = std::numeric_limits<double>::infinity();
 
-  // create a color gradient of blue
+Vector3f RayColor(Ray& r, const Geometry& scene) {
+  Hit_Record rec;
+  if (scene.Intersect(r, 0, infinity, rec)) {
+    return 0.5 * (rec.normal + Vector3f(1.0, 1.0, 1.0));
+  }
   Vector3f unit = r.GetDirection().normalized();
-  auto t = 0.5 * (unit(1) + 1.0);
+  float t = 0.5 * (unit(1) + 1.0);
   return (1.0 - t) * Vector3f(1.0, 1.0, 1.0) + t * Vector3f(0.5, 0.7, 1.0);
 }
 
 // compile instructions:
-// g++ FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp ../geometry/Sphere.cpp -o FileWriterTest.o
-// -o FileWriterTest to save as file, run the compiled file with '> o.ppm'
+// FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp
+// ../geometry/Sphere.cpp ../geometry/GeometryList.cpp -o FileWriterTest.o to
+// save as file, run the compiled file with '> o.ppm'
 int main() {
   std::vector<std::vector<Vector3f>> image;
-  Sphere ball(Vector3f(0.0, 0.0, -1.0), 0.5);
 
   // image
   float aspectRatio = 16.0 / 9.0;
   int width = 400;
   int height = static_cast<int>(width / aspectRatio);
+
+  // scene
+  GeometryList scene;
+  scene.Add(std::make_shared<Sphere>(Vector3f(0.0, -100.5, -1.0), 100));
+  scene.Add(std::make_shared<Sphere>(Vector3f(0.0, 0.0, -1.0), 0.5));
 
   // camera
   auto viewPortHeight = 2.0;
@@ -49,7 +56,7 @@ int main() {
       auto v = double(j) / (height - 1);
       Ray r(origin, bottomLeftCorner + u * horizontal + v * vertical - origin);
 
-      Vector3f color = ray_color(ball, r);
+      Vector3f color = RayColor(r, scene);
       pixelRow.push_back(color);
     }
     image.insert(image.begin(), pixelRow);
