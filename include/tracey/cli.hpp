@@ -5,7 +5,7 @@
 namespace Tracey {
 
 /**
- * @brief Simple command line interface.
+ * @brief A simple command line interface.
  *
  */
 class CLI {
