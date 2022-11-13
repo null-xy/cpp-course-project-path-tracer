@@ -7,6 +7,10 @@
 
 namespace Tracey {
 
+/**
+ * @brief This class contains functionality required to render a scene.
+ *
+ */
 class Camera {
 
 private:
@@ -14,6 +18,13 @@ private:
   double m_u0, m_du, m_v0, m_dv;
 
 public:
+  /**
+   * @brief Construct a new Camera object
+   *
+   * @param width is the width of the image, e.g. 1024 pixels
+   * @param height is the height of the image, e.g. 768 pixels
+   * @param fov  is the field of view in degrees, e.g. 30
+   */
   Camera(const int width, const int height, const double fov)
       : m_width(width), m_height(height) {
     double a1 = std::tan(constants::pi * 0.5 * fov / 180.0);
@@ -26,6 +37,13 @@ public:
     m_dv = 2.0 * a1 * i2;
   }
 
+  /**
+   * @brief Get the direction of a single ray.
+   *
+   * @param x is the image x coordinate
+   * @param y is the image y coordinate
+   * @return const std::array<double, 3>
+   */
   const std::array<double, 3> get_direction(int x, int y) const {
     double u = m_u0 + x * m_du;
     double v = m_v0 + y * m_dv;
