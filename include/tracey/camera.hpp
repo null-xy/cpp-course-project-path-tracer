@@ -22,8 +22,8 @@ public:
     double i2 = 1.0 / m_height;
     m_u0 = a2 * (i1 - 1.0);
     m_du = 2.0 * a2 * i1;
-    m_v0 = a1 * (1.0 - i2);
-    m_dv = -2.0 * a1 * i2;
+    m_v0 = a1 * (i2 - 1.0);
+    m_dv = 2.0 * a1 * i2;
   }
 
   const std::array<double, 3> get_direction(int x, int y) const {
