@@ -1,25 +1,22 @@
-
-#ifndef RAY_CLASS
-#define RAY_CLASS
+#ifndef PATH_TRACER_RAY
+#define PATH_TRACER_RAY
 
 #include <eigen3/Eigen/Dense>
-//#include <eigen3/Eigen/Core>
 
-template <typename T>
-class Ray{
+using Eigen::Vector3f;
+
+class Ray {
     public:
-    Ray(){}
-    //origin_=Eigen::Vector3d(0,0,0),direction_=Eigen::Vector3d(0,0,0);
-    Ray(const Eigen::Vector3d& origin_, const Eigen::Vector3d& direction_):
-    origin_(origin),direction_(direction){}
+        Ray();
+        Ray(Vector3f origin, Vector3f direction);
 
-    Eigen::Vector3d Origin() const {return origin_;}
-    Eigen::Vector3d Direction() const {return direction_;}
-    Eigen::Vector3d At(T& t) const {return origin_ + t * direction_;}
+        Vector3f GetOrigin() const;
+        Vector3f GetDirection() const;
+        Vector3f At(float f) const;
 
     private:
-    Eigen::Vector3d origin_;
-    Eigen::Vector3d direction_;
+        Vector3f origin_;
+        Vector3f direction_;
 };
 
 #endif
