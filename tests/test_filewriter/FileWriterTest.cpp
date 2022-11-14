@@ -2,22 +2,18 @@
 #include <iostream>
 #include <memory>
 
-#include "../geometry/GeometryList.hpp"
-#include "../geometry/Sphere.hpp"
-#include "../ray/Ray.hpp"
-#include "FileWriter.hpp"
-#include "../camera.hpp"
+#include "../../include/tracey/tracey.hpp"
 
 using Eigen::Vector3f;
 
 const double infinity = std::numeric_limits<double>::infinity();
 
-Vector3f RayColor(Ray& r, const Geometry& scene) {
-  Hit_Record rec;
-  if (scene.Intersect(r, 0, infinity, rec)) {
+Vector3f RayColor(Tracey::Ray& r, const Tracey::Geometry& scene) {
+  Tracey::Hit_Record rec;
+  if (scene.intersect(r, 0, infinity, rec)) {
     return 0.5 * (rec.normal + Vector3f(1.0, 1.0, 1.0));
   }
-  Vector3f unit = r.GetDirection().normalized();
+  Vector3f unit = r.get_direction().normalized();
   float t = 0.5 * (unit(1) + 1.0);
   return (1.0 - t) * Vector3f(1.0, 1.0, 1.0) + t * Vector3f(0.5, 0.7, 1.0);
 }
@@ -34,9 +30,9 @@ int main() {
   int height = static_cast<int>(width / aspectRatio);
 
   // scene
-  GeometryList scene;
+  Tracey::GeometryList scene;
   //scene.Add(std::make_shared<Sphere>(Vector3f(0.0, -100.5, -1.0), 100));
-  scene.Add(std::make_shared<Sphere>(Vector3f(0.0, 0.0, -1), 0.5));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, 0.0, -1), 0.5));
 
   // camera
   /*auto viewPortHeight = 2.0;
@@ -55,7 +51,9 @@ int main() {
   for (int j = height - 1; j >= 0; j--) {
     std::vector<Vector3f> pixelRow;
     for (int i = 0; i < width; i++) {
-      Ray r(Vector3f(0.0, 0.0, 0.0), cam.get_direction(i, j));
+      auto dir = cam.get_direction(i, j);
+      Vector3f dirToVec(dir[0], dir[1], dir[2]);
+      Tracey::Ray r(Vector3f(0.0, 0.0, 0.0), dirToVec);
 
       Vector3f color = RayColor(r, scene);
       pixelRow.push_back(color);
@@ -63,7 +61,7 @@ int main() {
     image.insert(image.begin(), pixelRow);
   }
 
-  FileWriter fw(image);
+  Tracey::FileWriter fw(image);
   fw.WriteFile();
   return 0;
 }
