@@ -1,0 +1,5 @@
+#ifndef LIGHT_SOURCE_CLASS
+#define LIGHT_SOURCE_CLASS
+
+
+#endif
