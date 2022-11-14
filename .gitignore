@@ -47,3 +47,9 @@ dkms.conf
 
 # Local Netlify folder
 .netlify
+.vscode
+/build
+
+# output files
+*.ppm
+*.png
