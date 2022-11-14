@@ -19,8 +19,8 @@ Vector3f RayColor(Tracey::Ray& r, const Tracey::Geometry& scene) {
 }
 
 // compile instructions:
-// g++ FileWriterTest.cpp FileWriter.cpp ../ray/Ray.cpp ../geometry/Geometry.hpp ../geometry/Sphere.cpp ../geometry/GeometryList.cpp ../tracey/camera.hpp -o FileWriterTest.o
-// save as file, run the compiled file with '> o.ppm'
+// g++ FileWriterTest.cpp -o fw.o
+// to save as file, run the compiled file with '> o.ppm'
 int main() {
   std::vector<std::vector<Vector3f>> image;
 
