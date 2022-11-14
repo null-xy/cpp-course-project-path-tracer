@@ -7,7 +7,7 @@ simulates real-world illumination.
 
 - Jukka Aho
 - Aleksi Kääriäinen
-- Member 3
+- Yuting Xie
 
 ## Build instructions
 
