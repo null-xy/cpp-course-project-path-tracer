@@ -28,5 +28,4 @@ class Hittable {
 };
 } //namespace Tracey
 
-
 #endif
