@@ -13,7 +13,7 @@ struct HitRecord
 	float t;
 	Vector3f point;
 	Vector3f normal;
-	Material* material;
+	//Material* material;
 	bool front_face;
 
 	inline void set_face_normal(const Tracey::Ray& ray, const Vector3f& outward_normal) {
