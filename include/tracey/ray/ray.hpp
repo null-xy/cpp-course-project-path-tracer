@@ -28,18 +28,13 @@ class Ray {
 };
 
 Vector3f RandomInUnitSphere(){
-<<<<<<< HEAD
-    Vector3f point;
-=======
+
     Vector3f p;
     /*
->>>>>>> 5da39af0524b969c646ee7c5731281e92d2d9a8f
     do{
         point=Vector3f::Random(-1,1);
     }while (point.norm() >= 1);
 	return point;
-<<<<<<< HEAD
-=======
   while (true) {
         p = Vector3f::Random(-1,1);
         if (p.squaredNorm() >= 1.0) continue;
@@ -54,7 +49,6 @@ Vector3f RandomInUnitSphere(){
       if (p.norm() >= 1.0) continue;
       return p;
   }
->>>>>>> 5da39af0524b969c646ee7c5731281e92d2d9a8f
 }
 
 inline Vector3f Reflect(const Vector3f& v, const Vector3f& n){

@@ -25,20 +25,12 @@ struct Hit_Record {
 // wip
 class Geometry {
  public:
-<<<<<<< HEAD
+
    virtual bool intersect(const Ray& ray, float tMin, float tMax,
                           Hit_Record& rec) const = 0;
   //virtual bool intersect(Ray& ray, float tMin, float tMax,
   //                       Hit_Record& rec) const = 0;
-=======
-<<<<<<< HEAD
-   virtual bool intersect(const Ray& ray, float tMin, float tMax,
-                          Hit_Record& rec) const = 0;
-=======
-  virtual bool intersect(const Ray& ray, float tMin, float tMax,
-                         Hit_Record& rec) const = 0;
->>>>>>> minor bugfix and set up the test correctly
->>>>>>> 5da39af0524b969c646ee7c5731281e92d2d9a8f
+
 };
 
 }  // namespace Tracey
