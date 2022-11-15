@@ -24,7 +24,8 @@ class GeometryList : public Geometry {
     return objects_;
   }
 
-  bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+  bool intersect(const Ray& ray, float tMin, float tMax,
+                      Hit_Record& rec) const {
     Hit_Record temp;
     bool objectHit = false;
     float closest = tMax;

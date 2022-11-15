@@ -13,7 +13,7 @@ class Sphere : public Geometry {
  public:
   Sphere(Vector3f origin, float radius) : origin_(origin), radius_(radius) {}
 
-  bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+  bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
     Vector3f oc = ray.get_origin() - get_origin();
     float a = ray.get_direction().dot(ray.get_direction());
     float bDivBy2 = oc.dot(ray.get_direction());
