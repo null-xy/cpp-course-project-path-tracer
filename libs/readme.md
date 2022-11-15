@@ -9,7 +9,8 @@ large dependencies, such as QT.
 
 # List of External Libs
 
-1. [Eigen](run: 'sudo apt-get install -y libeigen3-dev' in wsl or Linux system, after installation, it could be found under /usr/include/eigen3)
+1. [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+> run: 'sudo apt-get install -y libeigen3-dev' in wsl or Linux system, after installation, it could be found under /usr/include/eigen3, nothing else need to be done. Using #include <eigen3/Eigen/Dense>, and Vector3d is accessible.
 2. [Project2](https://anotherproject.com/download)
 
 
