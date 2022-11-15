@@ -4,18 +4,18 @@
 #include <iostream>
 #include <vector>
 
-using Eigen::Vector3f;
+using Eigen::Vector3d;
 
 namespace Tracey {
 
 class FileWriter {
  public:
-  FileWriter(std::vector<std::vector<Vector3f>> image) : image_(image) {}
+  FileWriter(std::vector<std::vector<Vector3d>> image) : image_(image) {}
 
   ~FileWriter() { image_.clear(); }
 
   // casts the vector of floats into a valid color composed of 3 hex values
-  void WritePixel(std::ostream& os, Vector3f color) {
+  void WritePixel(std::ostream& os, Vector3d color) {
     int r = static_cast<int>(255.999 * color(0));
     int g = static_cast<int>(255.999 * color(1));
     int b = static_cast<int>(255.999 * color(2));
@@ -32,14 +32,14 @@ class FileWriter {
 
     for (int j = height - 1; j >= 0; j--) {
       for (int i = 0; i < width; i++) {
-        Vector3f pixel = image_[j][i];
+        Vector3d pixel = image_[j][i];
         WritePixel(std::cout, pixel);
       }
     }
   }
 
  private:
-  std::vector<std::vector<Vector3f>> image_;
+  std::vector<std::vector<Vector3d>> image_;
 };
 
 }

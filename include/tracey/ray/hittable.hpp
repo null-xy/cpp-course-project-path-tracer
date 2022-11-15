@@ -11,12 +11,12 @@ struct HitRecord
 {
 	//T t;
 	float t;
-	Vector3f point;
-	Vector3f normal;
+	Vector3d point;
+	Vector3d normal;
 	//Material* material;
 	bool front_face;
 
-	inline void set_face_normal(const Tracey::Ray& ray, const Vector3f& outward_normal) {
+	inline void set_face_normal(const Tracey::Ray& ray, const Vector3d& outward_normal) {
 		front_face = ray.get_direction().dot(outward_normal) < 0;
         normal = front_face ? outward_normal :-outward_normal;
     }

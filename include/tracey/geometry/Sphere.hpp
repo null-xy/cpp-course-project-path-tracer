@@ -11,10 +11,10 @@ namespace Tracey {
 
 class Sphere : public Geometry {
  public:
-  Sphere(Vector3f origin, float radius) : origin_(origin), radius_(radius) {}
+  Sphere(Vector3d origin, float radius) : origin_(origin), radius_(radius) {}
 
   bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
-    Vector3f oc = ray.get_origin() - get_origin();
+    Vector3d oc = ray.get_origin() - get_origin();
     float a = ray.get_direction().dot(ray.get_direction());
     float bDivBy2 = oc.dot(ray.get_direction());
     float c = oc.dot(oc) - get_radius() * get_radius();
@@ -37,18 +37,18 @@ class Sphere : public Geometry {
 
     rec.t = root;
     rec.p = ray.at(rec.t);
-    Vector3f normal = (rec.p - get_origin()) / get_radius();
+    Vector3d normal = (rec.p - get_origin()) / get_radius();
     rec.set_normal(ray, normal);
 
     return true;
   }
 
-  Vector3f get_origin() const { return origin_; }
+  Vector3d get_origin() const { return origin_; }
 
   float get_radius() const { return radius_; }
 
  private:
-  Vector3f origin_;
+  Vector3d origin_;
   float radius_;
 };
 

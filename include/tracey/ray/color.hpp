@@ -2,7 +2,7 @@
 #define COLOR_CLASS
 #include "ray.hpp"
 
-void wirte_color(std::ostream &out, Vector3f pixel_color,
+void wirte_color(std::ostream &out, Vector3d pixel_color,
                  int samples_per_pixel) {
   auto r = pixel_color.x();
   auto g = pixel_color.y();

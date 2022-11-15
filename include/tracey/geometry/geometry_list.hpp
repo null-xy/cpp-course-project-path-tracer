@@ -6,7 +6,7 @@
 
 #include "geometry.hpp"
 
-using Eigen::Vector3f;
+using Eigen::Vector3d;
 
 namespace Tracey {
 

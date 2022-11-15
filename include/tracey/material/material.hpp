@@ -11,7 +11,7 @@ class Material{
 
 template <typename T>
 class Lambertian : public Material{
-    Lambertian(const Eigen::Vector3f& a):Albedo(a){}
+    Lambertian(const Eigen::Vector3d& a):Albedo(a){}
 
 };
 }//namespace Tracey
