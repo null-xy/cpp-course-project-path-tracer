@@ -9,7 +9,7 @@ large dependencies, such as QT.
 
 # List of External Libs
 
-1. [Project1](https://someproject.com/download)
+1. [Eigen](run: 'sudo apt-get install -y libeigen3-dev' in wsl or Linux system, after installation, it could be found under /usr/include/eigen3)
 2. [Project2](https://anotherproject.com/download)
 
 
