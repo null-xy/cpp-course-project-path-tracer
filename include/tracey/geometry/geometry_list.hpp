@@ -27,11 +27,16 @@ class GeometryList : public Geometry {
 */
   virtual bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const override;
 
+<<<<<<< HEAD
  //private:
   std::vector<std::shared_ptr<Geometry>> objects_;
 };
   bool GeometryList::intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
   //bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+=======
+  bool intersect(const Ray& ray, float tMin, float tMax,
+                      Hit_Record& rec) const {
+>>>>>>> minor bugfix and set up the test correctly
     Hit_Record temp;
     bool objectHit = false;
     float closest = tMax;

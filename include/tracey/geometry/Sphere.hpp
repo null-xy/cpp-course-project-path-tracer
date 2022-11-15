@@ -14,6 +14,7 @@ class Sphere : public Geometry {
   Sphere(){}
   Sphere(Vector3f origin, float radius) : origin_(origin), radius_(radius) {}
 
+<<<<<<< HEAD
   virtual bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const override;
 
 
@@ -27,6 +28,9 @@ class Sphere : public Geometry {
 };
 
   bool Sphere::intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+=======
+  bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+>>>>>>> minor bugfix and set up the test correctly
     Vector3f oc = ray.get_origin() - get_origin();
     float a = ray.get_direction().squaredNorm();
     float bDivBy2 = oc.dot(ray.get_direction());
