@@ -1,8 +1,9 @@
 #ifndef MATERIAL_CLASS
 #define MATERIAL_CLASS
 #include "../ray/ray.hpp"
+#include "../ray/hittable.hpp"
 
-template <typename T>
+namespace Tracey{
 class Material{
     public:
     virtual bool Scatter(const Ray& ray, const HitRecord& hit, Eigen::Vector3d& attenuation, Ray& Scattered) const=0;
@@ -10,8 +11,9 @@ class Material{
 
 template <typename T>
 class Lambertian : public Material{
-    Lambertian(const Eigen::Vector3d& a):Albedo(a){}
+    Lambertian(const Eigen::Vector3f& a):Albedo(a){}
 
 };
+}//namespace Tracey
 
 #endif

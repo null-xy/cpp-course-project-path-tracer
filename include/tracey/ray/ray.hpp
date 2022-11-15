@@ -9,9 +9,11 @@ namespace Tracey {
 class Ray {
  public:
   Ray() {}
-  Ray(Vector3f origin, Vector3f direction)
-      : origin_(origin), direction_(direction) {}
-
+  //Ray(Vector3f origin, Vector3f direction)
+  //    : origin_(origin), direction_(direction) {}
+  //Ray should be const
+  Ray(const Vector3f& origin, const Vector3f& direction)
+      : origin_(origin),direction_(direction){}
   Vector3f get_origin() const { return origin_; }
 
   Vector3f get_direction() const { return direction_; }

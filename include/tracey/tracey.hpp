@@ -5,6 +5,7 @@
 #include "constants.hpp"
 #include "ray/ray.hpp"
 #include "ray/color.hpp"
+#include "ray/hittable.hpp"
 #include "geometry/geometry.hpp"
 #include "geometry/sphere.hpp"
 #include "geometry/geometry_list.hpp"
