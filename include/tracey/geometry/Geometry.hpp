@@ -14,9 +14,9 @@ struct Hit_Record {
   float t;
   bool pointsOut;
 
-  inline void set_normal(const Ray& ray, const Vector3f normalOut) {
+  inline void set_normal(const Ray& ray, const Vector3f& normalOut) {
     // check whether the normal points towards the ray
-    pointsOut = ray.get_direction().dot(normalOut) > 0;
+    pointsOut = ray.get_direction().dot(normalOut) < 0;
     // set the normal pointing towards the ray
     normal = pointsOut ? normalOut : -normalOut;
   }
@@ -25,10 +25,20 @@ struct Hit_Record {
 // wip
 class Geometry {
  public:
+<<<<<<< HEAD
    virtual bool intersect(const Ray& ray, float tMin, float tMax,
                           Hit_Record& rec) const = 0;
   //virtual bool intersect(Ray& ray, float tMin, float tMax,
   //                       Hit_Record& rec) const = 0;
+=======
+<<<<<<< HEAD
+   virtual bool intersect(const Ray& ray, float tMin, float tMax,
+                          Hit_Record& rec) const = 0;
+=======
+  virtual bool intersect(const Ray& ray, float tMin, float tMax,
+                         Hit_Record& rec) const = 0;
+>>>>>>> minor bugfix and set up the test correctly
+>>>>>>> 5da39af0524b969c646ee7c5731281e92d2d9a8f
 };
 
 }  // namespace Tracey

@@ -7,6 +7,7 @@
 #include "geometry.hpp"
 
 using Eigen::Vector3f;
+using std::make_shared;
 
 namespace Tracey {
 
@@ -19,12 +20,28 @@ class GeometryList : public Geometry {
   void clear() { objects_.clear(); }
 
   void add(std::shared_ptr<Geometry> object) { objects_.push_back(object); }
-
+/*
   std::vector<std::shared_ptr<Geometry>> get_objects() const {
     return objects_;
   }
+<<<<<<< HEAD
   bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
   //bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+=======
+*/
+  virtual bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const override;
+
+<<<<<<< HEAD
+ //private:
+  std::vector<std::shared_ptr<Geometry>> objects_;
+};
+  bool GeometryList::intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+  //bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
+=======
+  bool intersect(const Ray& ray, float tMin, float tMax,
+                      Hit_Record& rec) const {
+>>>>>>> minor bugfix and set up the test correctly
+>>>>>>> 5da39af0524b969c646ee7c5731281e92d2d9a8f
     Hit_Record temp;
     bool objectHit = false;
     float closest = tMax;
@@ -39,9 +56,4 @@ class GeometryList : public Geometry {
 
     return objectHit;
   }
-
- private:
-  std::vector<std::shared_ptr<Geometry>> objects_;
-};
-
 }  // namespace Tracey
