@@ -10,15 +10,15 @@ using std::make_shared;
 namespace Tracey {
 class HittableList : public Hittable{
     public:
-    std::vector<shared_ptr<Hittable>> objects_;
-
     HittableList(){}
-    HittableList(shared_ptr<Hittable> obj){ Add(obj);}
+
+    HittableList(shared_ptr<Hittable> obj){ add(obj);}
     void Clear() {objects_.clear();}
-    void Add(shared_ptr<Hittable> obj) {objects_.push_back(obj);}
+    void add(shared_ptr<Hittable> obj) {objects_.push_back(obj);}
 
     virtual bool Hit(const Tracey::Ray& r, float min, float max, HitRecord& hit) const override;
-
+    
+    std::vector<shared_ptr<Hittable>> objects_;
 };
 
 bool HittableList::Hit(const Tracey::Ray& r, float min, float max, HitRecord& hit) const{

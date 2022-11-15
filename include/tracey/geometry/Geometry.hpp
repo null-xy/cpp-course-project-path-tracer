@@ -27,8 +27,6 @@ class Geometry {
  public:
    virtual bool intersect(const Ray& ray, float tMin, float tMax,
                           Hit_Record& rec) const = 0;
-  //virtual bool intersect(Ray& ray, float tMin, float tMax,
-  //                       Hit_Record& rec) const = 0;
 };
 
 }  // namespace Tracey

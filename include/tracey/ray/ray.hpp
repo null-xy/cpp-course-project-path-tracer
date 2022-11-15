@@ -28,11 +28,26 @@ class Ray {
 };
 
 Vector3f RandomInUnitSphere(){
-    Vector3f point;
+    Vector3f p;
+    /*
     do{
         point=Vector3f::Random(-1,1);
     }while (point.norm() >= 1);
 	return point;
+  while (true) {
+        p = Vector3f::Random(-1,1);
+        if (p.squaredNorm() >= 1.0) continue;
+        return p;
+    }*/
+
+    while (true) {
+      float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+      Vector3f p(r, g, b);
+      if (p.norm() >= 1.0) continue;
+      return p;
+  }
 }
 
 inline Vector3f Reflect(const Vector3f& v, const Vector3f& n){
