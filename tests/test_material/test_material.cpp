@@ -26,9 +26,7 @@ Vector3f RayColor(const Tracey::Ray& r, const Tracey::Geometry& scene,
 }
 
 int main() {
-  // Image
   std::ofstream out("out.ppm");
-  // Image
   const int samples_per_pixel = 100;
   const int max_depth = 5;
 
