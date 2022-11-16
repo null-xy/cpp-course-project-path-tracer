@@ -1,11 +1,8 @@
 #include <fstream>
 #include <iostream>
 
-#include "../../include/tracey/ray/hittable_list.hpp"
-#include "../../include/tracey/ray/sphere.hpp"
 #include "../../include/tracey/tracey.hpp"
 
-//, int depth
 const double infinity = std::numeric_limits<double>::infinity();
 
 Vector3d RayColor(const Tracey::Ray& r, const Tracey::Geometry& scene,
@@ -17,7 +14,7 @@ Vector3d RayColor(const Tracey::Ray& r, const Tracey::Geometry& scene,
   if (scene.intersect(r, 0.001, infinity, rec)) {
     // return 0.5 * (rec.normal + Vector3d(1.0, 1.0, 1.0));
     Vector3d target =
-        rec.p + rec.normal + Tracey::RandomInUnitSphere().normalized();
+        rec.p + rec.normal + Tracey::random_in_unit_sphere().normalized();
     return 0.5 * RayColor(Tracey::Ray(rec.p, target - rec.p), scene, depth - 1);
   }
   Vector3d unit = r.get_direction().normalized();
@@ -28,7 +25,7 @@ Vector3d RayColor(const Tracey::Ray& r, const Tracey::Geometry& scene,
 int main() {
   std::ofstream out("out.ppm");
   const int samples_per_pixel = 100;
-  const int max_depth = 5;
+  const int max_depth = 50;
 
   // image
   double aspectRatio = 16.0 / 9.0;

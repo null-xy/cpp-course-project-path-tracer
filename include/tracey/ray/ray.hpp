@@ -5,26 +5,53 @@
 using Eigen::Vector3d;
 
 namespace Tracey {
-
+/**
+ * @brief This class depicts a ray of light
+ */
 class Ray {
  public:
-  Ray() {}
+  /**
+   * @brief Construct a new Ray object
+   *
+   * @param origin is the starting point of the vector in (x, y, z)
+   * @param direction is the component vector of the ray in (x, y, z)
+   */
   Ray(const Vector3d& origin, const Vector3d& direction)
       : origin_(origin), direction_(direction) {}
+
+  /**
+   * @brief Returns the origin of the ray
+   */
   Vector3d get_origin() const { return origin_; }
 
+  /**
+   * @brief Returns the direction of the ray
+   */
   Vector3d get_direction() const { return direction_; }
+
+  /**
+   * @brief Returns the destination point of the Ray object
+   *
+   * @param f is the factor that direction is multiplied by
+   */
   Vector3d at(double f) const { return origin_ + direction_ * f; }
 
-  friend inline Vector3d RandomInUnitSphere();
-  friend inline Vector3d Reflect(const Vector3d& v, const Vector3d& n);
+  /**
+   * @brief Returns a random vector inside the unit sphere
+   */
+  friend inline Vector3d random_in_unit_sphere();
+
+  /**
+   * @brief Returns a reflection of the parameter vector
+   */
+  friend inline Vector3d reflect(const Vector3d& v, const Vector3d& n);
 
  private:
   Vector3d origin_;
   Vector3d direction_;
 };
 
-Vector3d RandomInUnitSphere() {
+Vector3d random_in_unit_sphere() {
   Vector3d p;
 
   while (true) {
@@ -37,7 +64,7 @@ Vector3d RandomInUnitSphere() {
   }
 }
 
-inline Vector3d Reflect(const Vector3d& v, const Vector3d& n) {
+inline Vector3d reflect(const Vector3d& v, const Vector3d& n) {
   return v - 2 * v.dot(n) * n;
 }
 

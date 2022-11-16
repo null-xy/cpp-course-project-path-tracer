@@ -11,11 +11,16 @@ namespace Tracey {
 
 class Sphere : public Geometry {
  public:
-  Sphere() {}
+  /**
+   * @brief Construct a new Sphere object
+   *
+   * @param origin is the center of the sphere in xyz-coordinates
+   * @param radius is the radius of the sphere
+   */
   Sphere(Vector3d origin, double radius) : origin_(origin), radius_(radius) {}
 
-  bool intersect(const Ray& ray, double tMin, double tMax,
-                         Hit_Record& rec) const;
+  bool intersect(const Ray& ray, double t_min, double t_max,
+                 Hit_Record& rec) const;
 
   Vector3d get_origin() const { return origin_; }
 
