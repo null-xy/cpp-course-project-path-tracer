@@ -23,7 +23,7 @@ class Camera {
    * @param origin is the location in xyz-coordinates
    * @param fov  is the field of view in degrees, e.g. 30
    */
-  Camera(const int width, const int height, const Vector3f& origin,
+  Camera(const int width, const int height, const Vector3d& origin,
          const double fov)
       : width_(width), height_(height), origin_(origin) {
     angle_ = std::tan(constants::pi * 0.5 * fov / 180.0);
@@ -37,17 +37,17 @@ class Camera {
    * @return const Ray(origin, direction)
    */
   const Ray get_direction(int x, int y) const {
-    float xx = (angle_ * (2.0 * x - width_ + 1)) / height_;
-    float yy = (angle_ * (height_ - 2 * y - 1)) / height_;
+    double xx = (angle_ * (2.0 * x - width_ + 1)) / height_;
+    double yy = (angle_ * (height_ - 2 * y - 1)) / height_;
 
-    Vector3f dir(xx, yy, -1);
+    Vector3d dir(xx, yy, -1);
     return Ray(origin_, dir.normalized());
   }
 
  private:
   const int width_, height_;
-  Vector3f origin_;
-  float angle_;
+  Vector3d origin_;
+  double angle_;
 };
 
 }  // namespace Tracey

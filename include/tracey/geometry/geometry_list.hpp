@@ -6,8 +6,7 @@
 
 #include "geometry.hpp"
 
-using Eigen::Vector3f;
-using std::make_shared;
+using Eigen::Vector3d;
 
 namespace Tracey {
 
@@ -21,18 +20,18 @@ class GeometryList : public Geometry {
 
   void add(std::shared_ptr<Geometry> object) { objects_.push_back(object); }
 
-  virtual bool intersect(const Ray& ray, float tMin, float tMax,
+  virtual bool intersect(const Ray& ray, double tMin, double tMax,
                          Hit_Record& rec) const override;
 
  private:
   std::vector<std::shared_ptr<Geometry>> objects_;
 };
 
-bool GeometryList::intersect(const Ray& ray, float tMin, float tMax,
+bool GeometryList::intersect(const Ray& ray, double tMin, double tMax,
                              Hit_Record& rec) const {
   Hit_Record temp;
   bool objectHit = false;
-  float closest = tMax;
+  double closest = tMax;
 
   for (const auto& object : objects_) {
     if (object->intersect(ray, tMin, closest, temp)) {

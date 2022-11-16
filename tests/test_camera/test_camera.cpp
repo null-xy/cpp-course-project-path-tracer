@@ -1,6 +1,5 @@
 #include <cmath>
 #include <iostream>
-#include <vector>
 
 #include "tracey.hpp"
 
@@ -12,7 +11,7 @@ Test returns error code 1 if failed, 0 otherwise.
 */
 int main(int argc, char *argv[]) {
   (void)argv;
-  Tracey::Camera camera(2, 3, Vector3f(0.0, 0.0, 0.0), 30.0);
+  Tracey::Camera camera(2, 3, Vector3d(0.0, 0.0, 0.0), 30.0);
   double u = (2 - sqrt(3)) * 1 / 3;
   double v = (2 - sqrt(3)) * 2 / 3;
   double w = -1.0;
@@ -21,8 +20,8 @@ int main(int argc, char *argv[]) {
   v *= dl;
   w *= dl;
   auto r = camera.get_direction(1, 2);
-  Vector3f dir = r.get_direction();
-  float u_e = dir(0), v_e = dir(1), w_e = dir(2); 
+  Vector3d dir = r.get_direction();
+  double u_e = dir(0), v_e = dir(1), w_e = dir(2); 
   double eps = 1.0e-12;
   // calculate error
   double e1 = std::abs(u - u_e);

@@ -4,17 +4,17 @@
 
 #include "../ray/ray.hpp"
 
-using Eigen::Vector3f;
+using Eigen::Vector3d;
 
 namespace Tracey {
 
 struct Hit_Record {
-  Vector3f p;
-  Vector3f normal;
-  float t;
+  Vector3d p;
+  Vector3d normal;
+  double t;
   bool pointsOut;
 
-  inline void set_normal(const Ray& ray, const Vector3f& normalOut) {
+  inline void set_normal(const Ray& ray, const Vector3d& normalOut) {
     // check whether the normal points towards the ray
     pointsOut = ray.get_direction().dot(normalOut) < 0;
     // set the normal pointing towards the ray
@@ -26,7 +26,7 @@ struct Hit_Record {
 class Geometry {
  public:
 
-   virtual bool intersect(const Ray& ray, float tMin, float tMax,
+   virtual bool intersect(const Ray& ray, double tMin, double tMax,
                           Hit_Record& rec) const = 0;
 
 };

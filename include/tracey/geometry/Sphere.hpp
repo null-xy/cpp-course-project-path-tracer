@@ -12,36 +12,36 @@ namespace Tracey {
 class Sphere : public Geometry {
  public:
   Sphere() {}
-  Sphere(Vector3f origin, float radius) : origin_(origin), radius_(radius) {}
+  Sphere(Vector3d origin, double radius) : origin_(origin), radius_(radius) {}
 
-  bool intersect(const Ray& ray, float tMin, float tMax,
+  bool intersect(const Ray& ray, double tMin, double tMax,
                          Hit_Record& rec) const;
 
-  Vector3f get_origin() const { return origin_; }
+  Vector3d get_origin() const { return origin_; }
 
-  float get_radius() const { return radius_; }
+  double get_radius() const { return radius_; }
 
  private:
-  Vector3f origin_;
-  float radius_;
+  Vector3d origin_;
+  double radius_;
 };
 
-bool Sphere::intersect(const Ray& ray, float tMin, float tMax,
+bool Sphere::intersect(const Ray& ray, double tMin, double tMax,
                        Hit_Record& rec) const {
-  Vector3f oc = ray.get_origin() - get_origin();
-  float a = ray.get_direction().squaredNorm();
-  float bDivBy2 = oc.dot(ray.get_direction());
-  float c = oc.squaredNorm() - get_radius() * get_radius();
+  Vector3d oc = ray.get_origin() - get_origin();
+  double a = ray.get_direction().squaredNorm();
+  double bDivBy2 = oc.dot(ray.get_direction());
+  double c = oc.squaredNorm() - get_radius() * get_radius();
 
-  float discriminant = bDivBy2 * bDivBy2 - a * c;
+  double discriminant = bDivBy2 * bDivBy2 - a * c;
 
   if (discriminant < 0) return false;  // ray does not hit sphere
 
-  float sqrtD = sqrt(discriminant);
+  double sqrtD = sqrt(discriminant);
 
   // calculate the roots of the quadratic equation and check if the root is in
   // the interval [tmin, tmax]
-  float root = (-bDivBy2 - sqrtD) / a;
+  double root = (-bDivBy2 - sqrtD) / a;
   if (root < tMin || root > tMax) {
     root = (-bDivBy2 + sqrtD) / a;
     if (root < tMin || root > tMax) {
@@ -51,7 +51,7 @@ bool Sphere::intersect(const Ray& ray, float tMin, float tMax,
 
   rec.t = root;
   rec.p = ray.at(rec.t);
-  Vector3f normal = (rec.p - get_origin()) / get_radius();
+  Vector3d normal = (rec.p - get_origin()) / get_radius();
   rec.set_normal(ray, normal);
   return true;
 }
