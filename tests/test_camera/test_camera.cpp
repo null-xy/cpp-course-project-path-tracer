@@ -12,7 +12,7 @@ Test returns error code 1 if failed, 0 otherwise.
 */
 int main(int argc, char *argv[]) {
   (void)argv;
-  Tracey::Camera camera(2, 3, 30.0);
+  Tracey::Camera camera(2, 3, Vector3f(0.0, 0.0, 0.0), 30.0);
   double u = (2 - sqrt(3)) * 1 / 3;
   double v = (2 - sqrt(3)) * 2 / 3;
   double w = -1.0;
@@ -20,7 +20,9 @@ int main(int argc, char *argv[]) {
   u *= dl;
   v *= dl;
   w *= dl;
-  auto [u_e, v_e, w_e] = camera.get_direction(1, 2);
+  auto r = camera.get_direction(1, 2);
+  Vector3f dir = r.get_direction();
+  float u_e = dir(0), v_e = dir(1), w_e = dir(2); 
   double eps = 1.0e-12;
   // calculate error
   double e1 = std::abs(u - u_e);
@@ -31,9 +33,9 @@ int main(int argc, char *argv[]) {
   if (!success || print_info) {
     for (int y = 0; y < 3; y++) {
       for (int x = 0; x < 2; x++) {
-        auto dir = camera.get_direction(x, y);
-        std::cout << "(" << x << ", " << y << ") -> (" << dir[0] << ", "
-                  << dir[1] << ", " << dir[2] << ")" << std::endl;
+        auto direction = camera.get_direction(x, y).get_direction();
+        std::cout << "(" << x << ", " << y << ") -> (" << direction(0) << ", "
+                  << direction(1) << ", " << direction(2) << ")" << std::endl;
       }
     }
     return 1;
