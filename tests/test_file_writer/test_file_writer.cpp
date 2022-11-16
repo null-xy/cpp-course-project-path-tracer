@@ -31,20 +31,9 @@ int main() {
 
   // scene
   Tracey::GeometryList scene;
-  //scene.Add(std::make_shared<Sphere>(Vector3f(0.0, -100.5, -1.0), 100));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, -100.5, -1.0), 100));
   scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, 0.0, -1), 0.5));
 
-  // camera
-  /*auto viewPortHeight = 2.0;
-  auto viewportWidth = aspectRatio * viewPortHeight;
-  auto focalLength = 1.0;
-
-  Vector3f origin(0.0, 0.0, 0.0);
-  Vector3f horizontal(viewportWidth, 0.0, 0.0);
-  Vector3f vertical(0.0, viewPortHeight, 0.0);
-  Vector3f bottomLeftCorner =
-      origin - horizontal / 2 - vertical / 2 - Vector3f(0.0, 0.0, focalLength);
-  */
 
   Tracey::Camera cam(width, aspectRatio * width, 60.0);
 

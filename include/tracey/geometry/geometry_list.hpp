@@ -21,27 +21,27 @@ class GeometryList : public Geometry {
 
   void add(std::shared_ptr<Geometry> object) { objects_.push_back(object); }
 
-  virtual bool intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const override;
-
+  virtual bool intersect(const Ray& ray, float tMin, float tMax,
+                         Hit_Record& rec) const override;
 
  private:
   std::vector<std::shared_ptr<Geometry>> objects_;
 };
 
-  bool GeometryList::intersect(const Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
-  //bool intersect(Ray& ray, float tMin, float tMax, Hit_Record& rec) const {
-    Hit_Record temp;
-    bool objectHit = false;
-    float closest = tMax;
+bool GeometryList::intersect(const Ray& ray, float tMin, float tMax,
+                             Hit_Record& rec) const {
+  Hit_Record temp;
+  bool objectHit = false;
+  float closest = tMax;
 
-    for (const auto& object : objects_) {
-      if (object->intersect(ray, tMin, tMax, temp)) {
-        objectHit = true;
-        closest = temp.t;
-        rec = temp;
-      }
+  for (const auto& object : objects_) {
+    if (object->intersect(ray, tMin, closest, temp)) {
+      objectHit = true;
+      closest = temp.t;
+      rec = temp;
     }
-
-    return objectHit;
   }
+
+  return objectHit;
+}
 }  // namespace Tracey

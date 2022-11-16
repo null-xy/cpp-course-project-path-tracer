@@ -25,8 +25,8 @@ class FileWriter {
 
   // writes the image vector to standard output according to ppm file format
   void WriteFile() {
-    unsigned int width = image_[0].size();
-    unsigned int height = image_.size();
+    int width = image_[0].size();
+    int height = image_.size();
 
     std::cout << "P3\n" << width << ' ' << height << "\n255\n";
 
