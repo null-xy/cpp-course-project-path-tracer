@@ -26,28 +26,26 @@ int main() {
 
   // image
   float aspectRatio = 16.0 / 9.0;
-  int width = 400;
-  int height = static_cast<int>(width / aspectRatio);
+  int w = 400;
+  int h = static_cast<int>(w / aspectRatio);
 
   // scene
   Tracey::GeometryList scene;
   scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, -100.5, -1.0), 100));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, 0.0, -1), 0.5));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3f(0.0, 0.0, -1.0), 0.5));
 
+  //Tracey::Camera cam(width, height, Vector3f(0.0, 0.0, 0.0), 30.0);
+  Vector3f origin(0.0, 0.0, 0.0);
+  Tracey::Camera cam(w, h, origin, 90.0);
 
-  Tracey::Camera cam(width, aspectRatio * width, 60.0);
-
-  for (int j = height - 1; j >= 0; j--) {
+  for (int j = h - 1; j >= 0; j--) {
     std::vector<Vector3f> pixelRow;
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < w; i++) {
       auto dir = cam.get_direction(i, j);
-      Vector3f dirToVec(dir[0], dir[1], dir[2]);
-      Tracey::Ray r(Vector3f(0.0, 0.0, 0.0), dirToVec);
-
-      Vector3f color = RayColor(r, scene);
+      Vector3f color = RayColor(dir, scene);
       pixelRow.push_back(color);
     }
-    image.insert(image.begin(), pixelRow);
+    image.push_back(pixelRow);
   }
 
   Tracey::FileWriter fw(image);
