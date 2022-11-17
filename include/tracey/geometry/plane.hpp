@@ -30,8 +30,7 @@ class Plane : public Geometry {
       Vector3d p = rec.p;
       Vector3d v = p - origin_;
       float d2 = v.dot(v);
-      bool hit = sqrt(d2) <= radius_;
-      return hit;
+      return sqrt(d2) <= radius_;
     }
     return false;
   }
