@@ -48,7 +48,7 @@ bool Plane::intersect_plane(const Ray& ray, double t_min, double t_max,
   double denominator = ray.get_direction().dot(normal_);
   // check if denominator is too close to zero
   if (denominator > 1e-6) {
-    double numerator = (origin_ - ray.get_origin()).dot(normal_);
+    double numerator = normal_.dot(origin_ - ray.get_origin());
     double t = numerator / denominator;
 
     if (t > t_min && t < t_max) {

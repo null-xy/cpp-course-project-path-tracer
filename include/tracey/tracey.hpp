@@ -8,6 +8,7 @@
 #include "ray/hittable.hpp"
 #include "geometry/geometry.hpp"
 #include "geometry/sphere.hpp"
+#include "geometry/box.hpp"
 #include "geometry/plane.hpp"
 #include "geometry/geometry_list.hpp"
 #include "utils/file_writer.hpp"

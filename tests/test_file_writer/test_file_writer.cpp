@@ -34,8 +34,18 @@ int main() {
   Tracey::GeometryList scene;
   //scene.add(std::make_shared<Tracey::Sphere>(Vector3d(-1.0, 0.0, -1.0), 0.5));
   //scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100));
-  scene.add(std::make_shared<Tracey::Plane>(Vector3d(0.0, 0.0, -1.0),
-                                            Vector3d(2.0, 1.0, -1.0), 0.5));
+  //scene.add(std::make_shared<Tracey::Plane>(Vector3d(0.0, 0.0, -1.0), Vector3d(2.0, 1.0, -1.0), 0.5));
+
+  Vector3d u_(1.0, 2.0, 3.0);
+  Vector3d v_(3.0, 3.0, -3.0);
+  Vector3d w_(-12.0, 9.0, -3.0);
+
+  std::array<Vector3d, 3> vec{u_.normalized(), v_.normalized(), w_.normalized()};
+  std::array<Vector3d, 3> aa{Vector3d(1.0, 0.0, 0.0), Vector3d(0.0, 1.0, 0.0), Vector3d(0.0, 0.0, 1.0)};
+  std::array<double, 3> dim{};
+
+  scene.add(std::make_shared<Tracey::Box>(Vector3d(0.0, 0.0, -2.0), aa, dim));
+  //scene.add(std::make_shared<Tracey::Box>(Vector3d(0.0, 0.0, -2.0), vec, dim));
 
   Vector3d origin(0.0, 0.0, 0.0);
   Tracey::Camera cam(w, h, origin, 60.0);
