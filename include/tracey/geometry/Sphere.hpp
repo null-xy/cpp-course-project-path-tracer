@@ -17,7 +17,7 @@ class Sphere : public Geometry {
    * @param origin is the center of the sphere in xyz-coordinates
    * @param radius is the radius of the sphere
    */
-  Sphere(Vector3d origin, double radius) : origin_(origin), radius_(radius) {}
+  Sphere(Vector3d origin, double radius, shared_ptr<Material> material) : origin_(origin), radius_(radius), material_(material) {}
 
   bool intersect(const Ray& ray, double t_min, double t_max,
                  Hit_Record& rec) const;
@@ -29,6 +29,7 @@ class Sphere : public Geometry {
  private:
   Vector3d origin_;
   double radius_;
+  shared_ptr<Material> material_;
 };
 
 bool Sphere::intersect(const Ray& ray, double tMin, double tMax,
@@ -58,6 +59,7 @@ bool Sphere::intersect(const Ray& ray, double tMin, double tMax,
   rec.p = ray.at(rec.t);
   Vector3d normal = (rec.p - get_origin()) / get_radius();
   rec.set_normal(ray, normal);
+  rec.material_prt=material_;
   return true;
 }
 }  // namespace Tracey

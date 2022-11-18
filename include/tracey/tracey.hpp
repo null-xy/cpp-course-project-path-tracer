@@ -10,4 +10,4 @@
 #include "geometry/sphere.hpp"
 #include "geometry/geometry_list.hpp"
 #include "utils/file_writer.hpp"
-
+#include "material/material.hpp"
