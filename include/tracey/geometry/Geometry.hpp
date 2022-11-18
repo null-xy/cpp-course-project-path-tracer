@@ -3,16 +3,21 @@
 #include <eigen3/Eigen/Dense>
 
 #include "../ray/ray.hpp"
+#include <memory>
 
 using Eigen::Vector3d;
+using std::shared_ptr;
 
 namespace Tracey {
+
+class Material;
 
 struct Hit_Record {
   Vector3d p;
   Vector3d normal;
   double t;
   bool pointsOut;
+  shared_ptr<Material> material_prt;
 
   /**
    * @brief calculates the normal of the ray intersecting a geometry and sets it

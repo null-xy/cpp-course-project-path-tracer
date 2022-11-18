@@ -3,24 +3,7 @@
 
 #include "../../include/tracey/tracey.hpp"
 
-const double infinity = std::numeric_limits<double>::infinity();
 
-Vector3d RayColor(const Tracey::Ray& r, const Tracey::Geometry& scene,
-                  int depth) {
-  Tracey::Hit_Record rec;
-  if (depth <= 0) {
-    return Vector3d(0, 0, 0);
-  }
-  if (scene.intersect(r, 0.001, infinity, rec)) {
-    // return 0.5 * (rec.normal + Vector3d(1.0, 1.0, 1.0));
-    Vector3d target =
-        rec.p + rec.normal + Tracey::random_in_unit_sphere().normalized();
-    return 0.5 * RayColor(Tracey::Ray(rec.p, target - rec.p), scene, depth - 1);
-  }
-  Vector3d unit = r.get_direction().normalized();
-  double t = 0.5 * (unit.y() + 1.0);
-  return (1.0 - t) * Vector3d(1.0, 1.0, 1.0) + t * Vector3d(0.5, 0.7, 1.0);
-}
 
 int main() {
   std::ofstream out("out.ppm");
@@ -32,10 +15,15 @@ int main() {
   int w = 400;
   int h = static_cast<int>(w / aspectRatio);
 
+  //material
+  auto material_ground=std::make_shared<Tracey::Lambertian>(Vector3d(0.8,0.8,0.0));
+  auto material_sphere_0=std::make_shared<Tracey::Metal>(Vector3d(0.8,0.8,0.8),0.3);
+  auto material_sphere_1=std::make_shared<Tracey::Lambertian>(Vector3d(0.7,0.3,0.3));
   // scene
   Tracey::GeometryList scene;
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5, material_sphere_0));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(-1.0, 0.0, -1.0), 0.5, material_sphere_1));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100, material_ground));
 
   Vector3d origin(0.0, 0.0, 0.0);
   Tracey::Camera cam(w, h, origin, 90.0);
@@ -48,9 +36,9 @@ int main() {
       Vector3d pixel_color(0, 0, 0);
       for (int s = 0; s < samples_per_pixel; ++s) {
         Tracey::Ray r = cam.get_direction(i, j);
-        pixel_color += RayColor(r, scene, max_depth);
+        pixel_color += Tracey::RayColor(r, scene, max_depth);
       }
-      wirte_color(out, pixel_color, samples_per_pixel);
+      Tracey::wirte_color(out, pixel_color, samples_per_pixel);
     }
   }
   std::cerr << "\nDone.\n";
