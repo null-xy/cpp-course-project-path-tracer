@@ -69,4 +69,4 @@ Vector3d reflect(const Vector3d& v, const Vector3d& n) {
   return v - 2 * v.dot(n) * n;
 }
 
-}  // namespace Tracey
+} // namespace Tracey
