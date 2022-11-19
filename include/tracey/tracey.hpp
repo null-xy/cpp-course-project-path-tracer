@@ -10,4 +10,5 @@
 #include "ray/color.hpp"
 #include "ray/hittable.hpp"
 #include "ray/ray.hpp"
+#include "reader.hpp"
 #include "utils/file_writer.hpp"
