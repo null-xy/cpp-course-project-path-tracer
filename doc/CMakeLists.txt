@@ -10,6 +10,5 @@ doxygen_add_docs(doc
                  tracey/tracey.hpp
                  tracey/cli.hpp
                  tracey/camera.hpp
-                 ALL
                  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/include")
 

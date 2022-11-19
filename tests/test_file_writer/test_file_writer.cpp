@@ -1,4 +1,4 @@
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include <iostream>
 #include <memory>
 
@@ -8,7 +8,7 @@ using Eigen::Vector3d;
 
 const double infinity = std::numeric_limits<double>::infinity();
 
-Vector3d RayColor(Tracey::Ray& r, const Tracey::Geometry& scene) {
+Vector3d RayColor(Tracey::Ray &r, const Tracey::Geometry &scene) {
   Tracey::Hit_Record rec;
   if (scene.intersect(r, 0, infinity, rec)) {
     return 0.5 * (rec.normal + Vector3d(1.0, 1.0, 1.0));
@@ -31,8 +31,11 @@ int main() {
 
   // scene
   Tracey::GeometryList scene;
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100));
+  auto material = nullptr;
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5,
+                                             material));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100,
+                                             material));
 
   Vector3d origin(0.0, 0.0, 0.0);
   Tracey::Camera cam(w, h, origin, 90.0);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include <iostream>
 #include <vector>
 
@@ -9,13 +9,13 @@ using Eigen::Vector3d;
 namespace Tracey {
 
 class FileWriter {
- public:
+public:
   FileWriter(std::vector<std::vector<Vector3d>> image) : image_(image) {}
 
   ~FileWriter() { image_.clear(); }
 
   // casts the vector of doubles into a valid color composed of 3 hex values
-  void WritePixel(std::ostream& os, Vector3d color) {
+  void WritePixel(std::ostream &os, Vector3d color) {
     int r = static_cast<int>(255.999 * color(0));
     int g = static_cast<int>(255.999 * color(1));
     int b = static_cast<int>(255.999 * color(2));
@@ -38,8 +38,8 @@ class FileWriter {
     }
   }
 
- private:
+private:
   std::vector<std::vector<Vector3d>> image_;
 };
 
-}
+} // namespace Tracey
