@@ -31,8 +31,11 @@ int main() {
 
   // scene
   Tracey::GeometryList scene;
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100));
+  auto material = nullptr;
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5,
+                                             material));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100,
+                                             material));
 
   Vector3d origin(0.0, 0.0, 0.0);
   Tracey::Camera cam(w, h, origin, 90.0);
