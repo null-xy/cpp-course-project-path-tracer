@@ -42,4 +42,4 @@ class FileWriter {
   std::vector<std::vector<Vector3d>> image_;
 };
 
-}
+} // namespace Tracey

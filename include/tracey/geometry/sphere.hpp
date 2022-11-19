@@ -62,4 +62,4 @@ bool Sphere::intersect(const Ray& ray, double tMin, double tMax,
   rec.material_prt=material_;
   return true;
 }
-}  // namespace Tracey
+} // namespace Tracey

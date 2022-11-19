@@ -57,4 +57,4 @@ bool GeometryList::intersect(const Ray& ray, double t_min, double t_max,
 
   return objectHit;
 }
-}  // namespace Tracey
+} // namespace Tracey

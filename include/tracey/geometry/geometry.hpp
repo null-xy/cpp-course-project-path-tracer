@@ -52,4 +52,4 @@ class Geometry {
                          Hit_Record& rec) const = 0;
 };
 
-}  // namespace Tracey
+} // namespace Tracey
