@@ -16,6 +16,8 @@ public:
   Lambertian(const Vector3d &albedo) : albedo_(albedo) {}
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &ray_scatter) const override {
+    // FIXME: Is this needed at all?
+    (void)ray_input;
     Vector3d ray_direction = rec.normal + random_in_unit_sphere().normalized();
     // fabs(ray_direction.x()) || ray_direction.x().abs()
     if (fabs(ray_direction.x()) < constants::near_zero &&
