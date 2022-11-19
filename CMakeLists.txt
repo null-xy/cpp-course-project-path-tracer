@@ -15,6 +15,16 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+message(STATUS "Finding external libraries")
+option(WITH_EIGEN "Use Eigen3 library" ON)
+if(WITH_EIGEN)
+  find_package(Eigen3 3.4.0 REQUIRED)
+endif()
+message(STATUS "Finding external libraries - done")
+
 option(BUILD_DOCUMENTATION "Build documentation" ON)
 
 if(BUILD_DOCUMENTATION)
@@ -29,6 +39,10 @@ endif()
 
 add_library(Tracey INTERFACE)
 target_include_directories(Tracey INTERFACE include/tracey)
+
+if(WITH_EIGEN)
+  target_link_libraries(Tracey INTERFACE Eigen3::Eigen)
+endif()
 
 add_executable(tracey src/tracey.cpp)
 target_link_libraries(tracey PRIVATE Tracey)
