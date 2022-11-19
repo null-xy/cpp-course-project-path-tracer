@@ -1,29 +1,35 @@
+#include <filesystem>
 #include <iostream>
+#include <memory>
 
 #include "tracey.hpp"
+
+namespace Tracey {
+
+class Scene {};
+
+} // namespace Tracey
 
 int main(int argc, char *argv[]) {
   std::cout << "Tracey - The Next Generation Path Tracer" << std::endl;
 
-  (void)argc;
-  (void)argv;
-
-  // Some preliminary boilerplate code how things could go
-
   // 1. Create command line interface
-  // Tracey::CLI cli;
+  Tracey::CLI cli;
 
   // 2. Parse command line arguments
-  // cli.parse_args(int argc, char *argv[]);
+  if (!cli.parse_args(argc, argv)) return 1;
+  std::cout << "Reading input file " << cli.get_input_file() << std::endl;
 
-  // 3. create input file parser
-  // Tracey::FileParser parser(cli.get_input_file());
+  // 3. create input file parser, detect file format from file extension
+  auto reader = Tracey::FileReader::create(cli.get_input_file());
+  if (!reader) return 1;
+  std::cout << "FileReader is " << reader->get_name() << std::endl;
 
   // 4. create scene
-  // Tracey::Scene scene;
+  Tracey::Scene scene;
 
-  // 5. use parser to populate scene with objects
-  // Tracey::Scene::from_parser(scene, parser);
+  // 5. populate scene with objects using reader
+  // Tracey::Scene::from_reader(scene, reader);
 
   // 6. create path tracer
   // Tracey::PathTracer path_tracer;
