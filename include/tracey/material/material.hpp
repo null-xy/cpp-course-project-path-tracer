@@ -1,7 +1,7 @@
 #ifndef MATERIAL_CLASS
 #define MATERIAL_CLASS
 #include "../constants.hpp"
-#include "../geometry/Geometry.hpp"
+#include "../geometry/geometry.hpp"
 #include "../ray/ray.hpp"
 
 namespace Tracey {

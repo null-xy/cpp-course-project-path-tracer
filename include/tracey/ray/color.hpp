@@ -1,6 +1,6 @@
 #ifndef COLOR_CLASS
 #define COLOR_CLASS
-#include "../geometry/Geometry.hpp"
+#include "../geometry/geometry.hpp"
 #include "../geometry/geometry_list.hpp"
 #include "../material/material.hpp"
 #include "ray.hpp"
