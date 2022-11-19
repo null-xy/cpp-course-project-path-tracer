@@ -44,8 +44,24 @@ public:
 
   /**
    * @brief Returns a reflection of the parameter vector
+   * 
+   * @param ray_in_direction direction for incoming ray
+   * @param gradient direction perpendicular to the geometry
+   * @return a relected vector
    */
-  friend inline Vector3d reflect(const Vector3d &v, const Vector3d &n);
+  friend inline Vector3d Reflect(const Vector3d &ray_in_direction,
+                                 const Vector3d &gradient);
+
+  /**
+   * @brief Returns a refraction of the parameter vector
+   * 
+   * @param ray_in_direction direction for incoming ray
+   * @param gradient direction perpendicular to the geometry
+   * @param n1_over_n2 refractive index from n1 / refractive index from n2
+   * @return a relected vector
+   */
+  friend inline Vector3d Refract(const Vector3d &ray_in_direction,
+                                 const Vector3d &gradient, double ni_over_nt);
 
 private:
   Vector3d origin_;
@@ -65,8 +81,20 @@ Vector3d random_in_unit_sphere() {
   }
 }
 
-Vector3d reflect(const Vector3d &v, const Vector3d &n) {
-  return v - 2 * v.dot(n) * n;
+Vector3d Reflect(const Vector3d &ray_in_direction, const Vector3d &gradient) {
+  return ray_in_direction - 2 * ray_in_direction.dot(gradient) * gradient;
+}
+
+//theta: angle from the direction perpendicular to ray hit geometry
+//cos_theta: cos(theta)
+Vector3d Refract(const Vector3d &ray_in_direction, const Vector3d &gradient,
+                 double n1_over_n2) {
+  double cos_theta = fmin((-ray_in_direction).dot(gradient), 1.0);
+  Vector3d ray_out_perpendicular =
+      n1_over_n2 * (ray_in_direction + cos_theta * gradient);
+  Vector3d ray_out_parallel =
+      -sqrt(fabs(1.0 - ray_out_perpendicular.squaredNorm())) * gradient;
+  return ray_out_perpendicular + ray_out_parallel;
 }
 
 } // namespace Tracey
