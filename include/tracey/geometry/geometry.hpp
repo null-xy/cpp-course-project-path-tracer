@@ -27,7 +27,7 @@ struct Hit_Record {
    * @param normal_out the normal of the ray intersecting the geometry
    * @return void
    */
-  inline void set_normal(const Ray& ray, const Vector3d& normal_out) {
+  inline void set_normal(const Ray &ray, const Vector3d &normal_out) {
     // check whether the normal points towards the ray
     pointsOut = ray.get_direction().dot(normal_out) < 0;
     // set the normal pointing towards the ray
@@ -37,7 +37,7 @@ struct Hit_Record {
 
 // wip
 class Geometry {
- public:
+public:
   /**
    * @brief returns a truth value indicating if a ray of light hits the sphere
    *
@@ -48,8 +48,8 @@ class Geometry {
    * geometry
    * @return true if ray hits the geometry, else false
    */
-  virtual bool intersect(const Ray& ray, double t_min, double t_max,
-                         Hit_Record& rec) const = 0;
+  virtual bool intersect(const Ray &ray, double t_min, double t_max,
+                         Hit_Record &rec) const = 0;
 };
 
 } // namespace Tracey

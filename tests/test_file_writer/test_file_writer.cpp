@@ -8,7 +8,7 @@ using Eigen::Vector3d;
 
 const double infinity = std::numeric_limits<double>::infinity();
 
-Vector3d RayColor(Tracey::Ray& r, const Tracey::Geometry& scene) {
+Vector3d RayColor(Tracey::Ray &r, const Tracey::Geometry &scene) {
   Tracey::Hit_Record rec;
   if (scene.intersect(r, 0, infinity, rec)) {
     return 0.5 * (rec.normal + Vector3d(1.0, 1.0, 1.0));

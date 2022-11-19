@@ -9,15 +9,15 @@ namespace Tracey {
  * @brief This class depicts a ray of light
  */
 class Ray {
- public:
+public:
   /**
    * @brief Construct a new Ray object
    *
    * @param origin is the starting point of the vector in (x, y, z)
    * @param direction is the component vector of the ray in (x, y, z)
    */
-  Ray(){}
-  Ray(const Vector3d& origin, const Vector3d& direction)
+  Ray() {}
+  Ray(const Vector3d &origin, const Vector3d &direction)
       : origin_(origin), direction_(direction) {}
 
   /**
@@ -45,9 +45,9 @@ class Ray {
   /**
    * @brief Returns a reflection of the parameter vector
    */
-  friend inline Vector3d reflect(const Vector3d& v, const Vector3d& n);
+  friend inline Vector3d reflect(const Vector3d &v, const Vector3d &n);
 
- private:
+private:
   Vector3d origin_;
   Vector3d direction_;
 };
@@ -65,7 +65,7 @@ Vector3d random_in_unit_sphere() {
   }
 }
 
-Vector3d reflect(const Vector3d& v, const Vector3d& n) {
+Vector3d reflect(const Vector3d &v, const Vector3d &n) {
   return v - 2 * v.dot(n) * n;
 }
 

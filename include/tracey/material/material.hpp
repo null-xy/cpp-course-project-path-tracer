@@ -15,7 +15,7 @@ class Lambertian : public Material {
 public:
   Lambertian(const Vector3d &albedo) : albedo_(albedo) {}
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
-                       Vector3d &attenuation, Ray &ray_scatter) const override {
+               Vector3d &attenuation, Ray &ray_scatter) const override {
     Vector3d ray_direction = rec.normal + random_in_unit_sphere().normalized();
     // fabs(ray_direction.x()) || ray_direction.x().abs()
     if (fabs(ray_direction.x()) < constants::near_zero &&
@@ -35,20 +35,21 @@ private:
 
 class Metal : public Material {
 public:
-  Metal(const Vector3d &albedo, double fuzz) : albedo_(albedo), fuzz_(fuzz <1 ? fuzz :1) {}
+  Metal(const Vector3d &albedo, double fuzz)
+      : albedo_(albedo), fuzz_(fuzz < 1 ? fuzz : 1) {}
 
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &ray_scatter) const override {
     Vector3d ray_reflect =
         reflect(ray_input.get_direction().normalized(), rec.normal);
-    ray_scatter = Ray(rec.p, ray_reflect + random_in_unit_sphere()*fuzz_);
+    ray_scatter = Ray(rec.p, ray_reflect + random_in_unit_sphere() * fuzz_);
     attenuation = albedo_;
     return (ray_scatter.get_direction().dot(rec.normal) > 0);
   }
 
 private:
   Vector3d albedo_;
-  //frosted material
+  // frosted material
   double fuzz_;
 };
 
