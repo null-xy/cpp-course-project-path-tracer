@@ -1,13 +1,13 @@
 #ifndef COLOR_CLASS
 #define COLOR_CLASS
-#include "../geometry/Geometry.hpp"
+#include "../geometry/geometry.hpp"
 #include "../geometry/geometry_list.hpp"
 #include "../material/material.hpp"
 #include "ray.hpp"
 
 namespace Tracey {
-void wirte_color(std::ostream &out, Vector3d pixel_color,
-                 int samples_per_pixel) {
+void WirteColor(std::ostream &out, Vector3d pixel_color,
+                int samples_per_pixel) {
   auto r = pixel_color.x();
   auto g = pixel_color.y();
   auto b = pixel_color.z();
@@ -18,9 +18,9 @@ void wirte_color(std::ostream &out, Vector3d pixel_color,
   b = sqrt(scale * b);
 
   // Write the translated [0,255] value of each color component.
-  out << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
-      << static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
-      << static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
+  out << static_cast<int>(256 * Clamp(r, 0.0, 0.999)) << ' '
+      << static_cast<int>(256 * Clamp(g, 0.0, 0.999)) << ' '
+      << static_cast<int>(256 * Clamp(b, 0.0, 0.999)) << '\n';
 }
 
 Vector3d RayColor(const Ray &r, const Geometry &scene, int depth) {
@@ -29,19 +29,13 @@ Vector3d RayColor(const Ray &r, const Geometry &scene, int depth) {
     return Vector3d(0, 0, 0);
   }
   if (scene.intersect(r, 0.001, constants::infinity, rec)) {
-    // return 0.5 * (rec.normal + Vector3d(1.0, 1.0, 1.0));
     Ray ray_scatter;
     Vector3d attenuation;
     if (rec.material_prt->Scatter(r, rec, attenuation, ray_scatter)) {
-      // attenuation.x()*RayColor(ray_scatter, scene, depth - 1).x()
       return attenuation.cwiseProduct(RayColor(ray_scatter, scene, depth - 1));
     } else {
       return Vector3d(0, 0, 0);
     }
-    // Vector3d target =
-    //    rec.p + rec.normal + Tracey::random_in_unit_sphere().normalized();
-    // return 0.5 * RayColor(Tracey::Ray(rec.p, target - rec.p), scene, depth -
-    // 1);
   }
   Vector3d unit = r.get_direction().normalized();
   double t = 0.5 * (unit.y() + 1.0);

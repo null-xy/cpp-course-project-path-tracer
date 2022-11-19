@@ -3,8 +3,6 @@
 
 #include "../../include/tracey/tracey.hpp"
 
-
-
 int main() {
   std::ofstream out("out.ppm");
   const int samples_per_pixel = 100;
@@ -15,15 +13,28 @@ int main() {
   int w = 400;
   int h = static_cast<int>(w / aspectRatio);
 
-  //material
-  auto material_ground=std::make_shared<Tracey::Lambertian>(Vector3d(0.8,0.8,0.0));
-  auto material_sphere_0=std::make_shared<Tracey::Metal>(Vector3d(0.8,0.8,0.8),0.3);
-  auto material_sphere_1=std::make_shared<Tracey::Lambertian>(Vector3d(0.7,0.3,0.3));
+  // material
+  auto material_ground =
+      std::make_shared<Tracey::Lambertian>(Vector3d(0.8, 0.8, 0.0));
+  auto material_sphere_0 =
+      std::make_shared<Tracey::Metal>(Vector3d(0.8, 0.6, 0.2), 0.3);
+  auto material_sphere_1 =
+      std::make_shared<Tracey::Lambertian>(Vector3d(0.7, 0.3, 0.3));
+  //
+  auto material_sphere_2 = std::make_shared<Tracey::Glass>(Vector3d(0.8, 0.8, 0.8),0.3,2.4);
   // scene
   Tracey::GeometryList scene;
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5, material_sphere_0));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(-1.0, 0.0, -1.0), 0.5, material_sphere_1));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100, material_ground));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5,
+                                             material_sphere_0));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(-1.0, 0.0, -1.0), 0.5,
+                                             material_sphere_1));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(1.0, 0.0, -1.0), 0.5,
+                                             material_sphere_2));
+  // radius<0 to make a empty sphere inside the glass sphere
+  // scene.add(std::make_shared<Tracey::Sphere>(Vector3d(1.0, 0.0, -1.0), -0.4,
+  //                                           material_sphere_2));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100,
+                                             material_ground));
 
   Vector3d origin(0.0, 0.0, 0.0);
   Tracey::Camera cam(w, h, origin, 90.0);
@@ -38,7 +49,7 @@ int main() {
         Tracey::Ray r = cam.get_direction(i, j);
         pixel_color += Tracey::RayColor(r, scene, max_depth);
       }
-      Tracey::wirte_color(out, pixel_color, samples_per_pixel);
+      Tracey::WirteColor(out, pixel_color, samples_per_pixel);
     }
   }
   std::cerr << "\nDone.\n";
