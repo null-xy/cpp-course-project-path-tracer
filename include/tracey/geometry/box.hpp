@@ -1,7 +1,9 @@
+#include <Eigen/Dense>
 #include <cmath>
-
 #include "geometry.hpp"
 #include "../material/material.hpp"
+
+using Eigen::Vector3d;
 
 namespace Tracey {
 

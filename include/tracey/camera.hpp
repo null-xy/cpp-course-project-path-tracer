@@ -1,11 +1,14 @@
 #pragma once
 
+#include <Eigen/Dense>
 #include <array>
 #include <cmath>
 #include <iostream>
 
 #include "constants.hpp"
 #include "ray/ray.hpp"
+
+using Eigen::Vector3d;
 
 namespace Tracey {
 

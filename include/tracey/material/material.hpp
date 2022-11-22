@@ -1,22 +1,26 @@
 #ifndef MATERIAL_CLASS
 #define MATERIAL_CLASS
+#include <Eigen/Dense>
+
 #include "../constants.hpp"
 #include "../geometry/geometry.hpp"
 #include "../ray/ray.hpp"
 
+using Eigen::Vector3d;
+
 namespace Tracey {
 class Material {
-public:
+ public:
   virtual bool Scatter(const Ray &ray, const Hit_Record &hit,
                        Vector3d &attenuation, Ray &scattered_ray) const = 0;
 };
-  /**
-   * @brief Construct a new Lambertian Material object
-   *
-   * @param albedo is RGB color of the Material
-   */
+/**
+ * @brief Construct a new Lambertian Material object
+ *
+ * @param albedo is RGB color of the Material
+ */
 class Lambertian : public Material {
-public:
+ public:
   Lambertian(const Vector3d &albedo) : albedo_(albedo) {}
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &scattered_ray) const override {
@@ -32,18 +36,18 @@ public:
     return true;
   }
 
-private:
+ private:
   Vector3d albedo_;
 };
 
-  /**
-   * @brief Construct a new Metal Material object
-   *
-   * @param albedo is RGB color of the Material
-   * @param fuzz to make frosted metal, fuzz=0: smooth
-   */
+/**
+ * @brief Construct a new Metal Material object
+ *
+ * @param albedo is RGB color of the Material
+ * @param fuzz to make frosted metal, fuzz=0: smooth
+ */
 class Metal : public Material {
-public:
+ public:
   Metal(const Vector3d &albedo, double fuzz)
       : albedo_(albedo), fuzz_(fuzz < 1 ? fuzz : 1) {}
 
@@ -56,27 +60,31 @@ public:
     return (scattered_ray.get_direction().dot(rec.normal) > 0);
   }
 
-private:
+ private:
   Vector3d albedo_;
   // frosted material
   double fuzz_;
 };
 
-  /**
-   * @brief Construct a new Glass Material object
-   *
-   * @param albedo is RGB color of the Material
-   * @param fuzz to make frosted metal, fuzz=0: smooth
-   * @param refractive_index refractive index (typically air = 1.0, glass = 1.3–1.7, diamond = 2.4)
-   */
+/**
+ * @brief Construct a new Glass Material object
+ *
+ * @param albedo is RGB color of the Material
+ * @param fuzz to make frosted metal, fuzz=0: smooth
+ * @param refractive_index refractive index (typically air = 1.0, glass
+ * = 1.3–1.7, diamond = 2.4)
+ */
 class Glass : public Material {
-public:
-  Glass(const Vector3d& albedo, double fuzz, double refractive_index) :albedo_(albedo),fuzz_(fuzz < 1 ? fuzz : 1), refractive_index_(refractive_index) {}
+ public:
+  Glass(const Vector3d &albedo, double fuzz, double refractive_index)
+      : albedo_(albedo),
+        fuzz_(fuzz < 1 ? fuzz : 1),
+        refractive_index_(refractive_index) {}
   bool Scatter(const Ray &ray_in, const Hit_Record &rec, Vector3d &attenuation,
                Ray &scattered_ray) const override {
     attenuation = albedo_;
-    //attenuation = Vector3d(1.0, 1.0, 1.0);
-    //1.0 here is refractive index for air
+    // attenuation = Vector3d(1.0, 1.0, 1.0);
+    // 1.0 here is refractive index for air
     double n1_over_n2 =
         rec.pointsOut ? (1.0 / refractive_index_) : refractive_index_;
 
@@ -86,8 +94,7 @@ public:
 
     bool cannot_refract = n1_over_n2 * sin_theta > 1.0;
     Vector3d ray_out;
-    if (cannot_refract ||
-        Schlick(cos_theta, n1_over_n2) > RandomDouble()) {
+    if (cannot_refract || Schlick(cos_theta, n1_over_n2) > RandomDouble()) {
       ray_out = Reflect(unit_ray_in, rec.normal);
     } else {
       ray_out = Refract(unit_ray_in, rec.normal, n1_over_n2);
@@ -97,7 +104,7 @@ public:
     return true;
   }
 
-private:
+ private:
   /**
    * @brief Schlick's approximation for Fresnel Formula
    *
@@ -116,6 +123,6 @@ private:
   double refractive_index_;
 };
 
-} // namespace Tracey
+}  // namespace Tracey
 
 #endif

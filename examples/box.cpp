@@ -1,17 +1,17 @@
 #include <Eigen/Dense>
 #include <iostream>
 #include <memory>
+
 #include "../include/tracey/tracey.hpp"
 
 using Eigen::Vector3d;
 
 int main() {
-  std::fstream out("out.ppm");
   std::vector<std::vector<Vector3d>> image;
 
   // image
   double aspectRatio = 16.0 / 9.0;
-  int w = 400;
+  int w = 100;
   int h = static_cast<int>(w / aspectRatio);
   int samples_per_pixel = 100;
   int max_depth = 50;
@@ -51,8 +51,8 @@ int main() {
   }
   std::cerr << "Done" << std::endl;
 
-  Tracey::FileWriter fw(image);
-  fw.WriteFile(out, samples_per_pixel);
+  Tracey::FileWriter fw("out.ppm", image, "./output/");
+  fw.write_file(samples_per_pixel);
 
   return 0;
 }

@@ -1,3 +1,0 @@
-add_executable(test_file_writer test_file_writer.cpp)
-target_link_libraries(test_file_writer PRIVATE Tracey)
-add_test(NAME test_file_writer COMMAND test_file_writer)

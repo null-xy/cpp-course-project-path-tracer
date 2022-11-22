@@ -1,9 +1,13 @@
 #ifndef COLOR_CLASS
 #define COLOR_CLASS
+#include <Eigen/Dense>
+
 #include "../geometry/geometry.hpp"
 #include "../geometry/geometry_list.hpp"
 #include "../material/material.hpp"
 #include "ray.hpp"
+
+using Eigen::Vector3d;
 
 namespace Tracey {
 void WirteColor(std::ostream &out, Vector3d pixel_color,
