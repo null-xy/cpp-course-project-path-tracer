@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <sstream>
 
 using Eigen::Vector3d;
 
@@ -50,7 +49,7 @@ class FileWriter {
     double r = sqrt(scale * color(0));
     double g = sqrt(scale * color(1));
     double b = sqrt(scale * color(2));
-    
+
     if (!file.good()) {
       std::cerr << "error writing file" << std::endl;
       return;

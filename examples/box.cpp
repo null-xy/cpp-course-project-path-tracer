@@ -51,7 +51,7 @@ int main() {
   }
   std::cerr << "Done" << std::endl;
 
-  Tracey::FileWriter fw("out.ppm", image, "./output/");
+  Tracey::FileWriter fw("out.ppm", image, "../../output/");
   fw.write_file(samples_per_pixel);
 
   return 0;
