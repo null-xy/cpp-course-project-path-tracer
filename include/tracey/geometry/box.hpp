@@ -1,5 +1,4 @@
-#include <math.h>
-
+#include <cmath>
 #include <iostream>
 
 #include "geometry.hpp"
@@ -61,7 +60,7 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
     double r = vec.dot(origin_ - ray.get_origin());
 
     double denominator = vec.dot(ray.get_direction());
-    if (fabs(denominator) < 1e-50) {
+    if (abs(denominator) < 1e-10) {
       double r1 = -r - dim;
       double r2 = -r + dim;
 
