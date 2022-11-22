@@ -1,5 +1,5 @@
 #include <iostream>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 /*
 Eigen::Vector3d ray_color(const Ray& r) {

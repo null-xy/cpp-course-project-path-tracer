@@ -1,7 +1,7 @@
 #include <cmath>
-#include <iostream>
 
 #include "geometry.hpp"
+#include "../material/material.hpp"
 
 namespace Tracey {
 
@@ -24,21 +24,23 @@ class Box : public Geometry {
    * @param hw half-width
    * @param hh half-height
    * @param hd half-depth
+   * @param material material of the box
    */
   Box(Vector3d origin, Vector3d u, Vector3d v, Vector3d w, double hw, double hh,
-      double hd)
+      double hd, std::shared_ptr<Material> material)
       : origin_(origin),
         base_(std::array<Vector3d, 3>{u, v, w}),
-        dimensions_(std::array<double, 3>{hw, hh, hd}) {}
+        dimensions_(std::array<double, 3>{hw, hh, hd}),
+        material_(material) {}
 
-  Box(Vector3d origin, std::array<Vector3d, 3> base, std::array<double, 3> dim)
-      : origin_(origin), base_(base), dimensions_(dim) {}
+  Box(Vector3d origin, std::array<Vector3d, 3> base, std::array<double, 3> dim, std::shared_ptr<Material> material)
+      : origin_(origin), base_(base), dimensions_(dim), material_(material) {}
 
   const Vector3d get_origin() const { return origin_; }
   const std::array<Vector3d, 3> get_base() const { return base_; }
   const Vector3d get_base(unsigned int i) const { return base_[i]; }
   const std::array<double, 3> get_dim() const { return dimensions_; }
-  const double get_dim(unsigned int i) const { return dimensions_[i]; }
+  double get_dim(unsigned int i) const { return dimensions_[i]; }
   bool intersect(const Ray& ray, double t_min, double t_max,
                  Hit_Record& rec) const;
 
@@ -46,6 +48,7 @@ class Box : public Geometry {
   Vector3d origin_;
   std::array<Vector3d, 3> base_;
   std::array<double, 3> dimensions_;
+  std::shared_ptr<Material> material_;
 };
 
 bool Box::intersect(const Ray& ray, double t_min, double t_max,
@@ -61,9 +64,6 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
 
     double denominator = vec.dot(ray.get_direction());
     if (abs(denominator) < 1e-10) {
-      double r1 = -r - dim;
-      double r2 = -r + dim;
-
       if ((-r - dim > 0) || (-r + dim > 0)) {
         // ray misses the box
         return false;
@@ -104,6 +104,7 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
   rec.p = ray.at(rec.t);
   Vector3d normal = (rec.p - get_origin()).normalized();
   rec.set_normal(ray, normal);
+  rec.material_prt = material_;
   return true;
 }
 
