@@ -50,6 +50,9 @@ dkms.conf
 .vscode
 /build
 
+# input files
+*.json
+
 # output files
 *.ppm
 *.png

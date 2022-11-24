@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../libs/json.hpp"
-#include "camera.hpp"
 #include "cli.hpp"
 #include "constants.hpp"
 #include "geometry/geometry.hpp"
@@ -10,7 +9,9 @@
 #include "geometry/plane.hpp"
 #include "geometry/geometry_list.hpp"
 #include "material/material.hpp"
+#include "scene.hpp"
 #include "ray/color.hpp"
 #include "ray/ray.hpp"
+#include "camera.hpp"
 #include "reader.hpp"
 #include "utils/file_writer.hpp"

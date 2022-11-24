@@ -18,6 +18,8 @@ namespace Tracey {
  */
 class Camera {
  public:
+  Camera()
+      : width_(0), height_(0), origin_(Vector3d(0.0, 0.0, 0.0)), angle_(0.0) {}
   /**
    * @brief Construct a new Camera object
    *

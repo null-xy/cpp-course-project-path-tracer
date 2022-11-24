@@ -10,6 +10,8 @@ class FileReader {
 public:
   virtual std::string get_name() = 0;
 
+  virtual std::string get_filename() = 0;
+
   static std::unique_ptr<FileReader> create(const std::string &filename);
 };
 
@@ -27,11 +29,28 @@ public:
   std::string get_filename() { return m_filename; }
 };
 
+class JsonFileReader : public FileReader {
+private:
+  const std::string m_filename;
+
+public:
+  JsonFileReader(const std::string &filename) : m_filename(filename) {}
+
+  static std::string get_extension() { return ".json"; }
+
+  std::string get_name() { return "JsonFileReader"; }
+
+  std::string get_filename() { return m_filename; }
+};
+
 std::unique_ptr<FileReader> FileReader::create(const std::string &filename) {
   std::filesystem::path path(filename);
   std::string file_ext = path.extension();
   if (file_ext == PovFileReader::get_extension())
     return std::make_unique<PovFileReader>(filename);
+  if (file_ext == JsonFileReader::get_extension()) {
+    return std::make_unique<JsonFileReader>(filename);
+  }
   std::cerr << "Unknown file format: " << file_ext << std::endl;
   return nullptr;
 }
