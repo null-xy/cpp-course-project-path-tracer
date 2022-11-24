@@ -3,7 +3,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 
-#include "Geometry.hpp"
+#include "geometry.hpp"
 
 using Eigen::Vector3d;
 
