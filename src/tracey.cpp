@@ -29,7 +29,8 @@ int main(int argc, char *argv[]) {
   Tracey::Scene scene;
 
   // 5. populate scene with objects using reader
-  Tracey::Scene::from_reader(scene, reader);
+  //Tracey::Scene::from_reader(scene, reader);
+  Tracey::from_reader(scene, reader);
 
   // 6. create path tracer
   // Tracey::PathTracer path_tracer;
