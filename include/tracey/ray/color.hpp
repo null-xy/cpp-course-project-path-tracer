@@ -23,7 +23,7 @@ void WirteColor(std::ostream &out, Vector3d pixel_color,
       << static_cast<int>(256 * Clamp(b, 0.0, 0.999)) << '\n';
 }
 
-Vector3d RayColor(const Ray &r, const Geometry &scene, int depth) {
+Vector3d RayColor(const Ray &r, const Vector3d& background, const Geometry &scene, int depth) {
   Hit_Record rec;
   if (depth <= 0) {
     return Vector3d(0, 0, 0);
@@ -31,11 +31,15 @@ Vector3d RayColor(const Ray &r, const Geometry &scene, int depth) {
   if (scene.intersect(r, 0.001, constants::infinity, rec)) {
     Ray ray_scatter;
     Vector3d attenuation;
+    Vector3d emitted_ray=rec.material_prt->Emitted(rec.u, rec.v, rec.p);
+
     if (rec.material_prt->Scatter(r, rec, attenuation, ray_scatter)) {
-      return attenuation.cwiseProduct(RayColor(ray_scatter, scene, depth - 1));
+      return emitted_ray + attenuation.cwiseProduct(RayColor(ray_scatter,background, scene, depth - 1));
     } else {
-      return Vector3d(0, 0, 0);
+      return emitted_ray;
     }
+  }else{
+    return background;
   }
   Vector3d unit = r.get_direction().normalized();
   double t = 0.5 * (unit.y() + 1.0);
