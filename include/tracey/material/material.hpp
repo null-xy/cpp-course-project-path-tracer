@@ -1,13 +1,17 @@
 #ifndef MATERIAL_CLASS
 #define MATERIAL_CLASS
+#include <Eigen/Dense>
+
 #include "../constants.hpp"
 #include "../geometry/geometry.hpp"
 #include "../ray/ray.hpp"
 #include "texture.hpp"
 
+using Eigen::Vector3d;
+
 namespace Tracey {
 class Material {
-public:
+ public:
   virtual bool Scatter(const Ray &ray, const Hit_Record &hit,
                        Vector3d &attenuation, Ray &scattered_ray) const = 0;
   virtual Vector3d Emitted(double u, double v, const Vector3d &point) const {
@@ -20,10 +24,8 @@ public:
  * @param albedo is RGB color of the Material
  */
 class Lambertian : public Material {
-public:
-  Lambertian(const Vector3d &albedo)
-      : albedo_(std::make_shared<SolidTexture>(albedo)) {}
-  Lambertian(std::shared_ptr<Texture> albedo) : albedo_(albedo) {}
+ public:
+  Lambertian(const Vector3d &albedo) : albedo_(albedo) {}
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &scattered_ray) const override {
     Vector3d ray_direction = rec.normal + random_in_unit_sphere().normalized();
@@ -39,9 +41,8 @@ public:
     return true;
   }
 
-private:
-  std::shared_ptr<Texture> albedo_;
-  // Vector3d albedo_;
+ private:
+  Vector3d albedo_;
 };
 
 /**
@@ -51,7 +52,7 @@ private:
  * @param fuzz to make frosted metal, fuzz=0: smooth
  */
 class Metal : public Material {
-public:
+ public:
   Metal(const Vector3d &albedo, double fuzz)
       : albedo_(albedo), fuzz_(fuzz < 1 ? fuzz : 1) {}
 
@@ -64,7 +65,7 @@ public:
     return (scattered_ray.get_direction().dot(rec.normal) > 0);
   }
 
-private:
+ private:
   Vector3d albedo_;
   // frosted material
   double fuzz_;
@@ -79,9 +80,10 @@ private:
  * = 1.3–1.7, diamond = 2.4)
  */
 class Glass : public Material {
-public:
+ public:
   Glass(const Vector3d &albedo, double fuzz, double refractive_index)
-      : albedo_(albedo), fuzz_(fuzz < 1 ? fuzz : 1),
+      : albedo_(albedo),
+        fuzz_(fuzz < 1 ? fuzz : 1),
         refractive_index_(refractive_index) {}
   bool Scatter(const Ray &ray_in, const Hit_Record &rec, Vector3d &attenuation,
                Ray &scattered_ray) const override {
@@ -107,7 +109,7 @@ public:
     return true;
   }
 
-private:
+ private:
   /**
    * @brief Schlick's approximation for Fresnel Formula
    *
@@ -126,6 +128,6 @@ private:
   double refractive_index_;
 };
 
-} // namespace Tracey
+}  // namespace Tracey
 
 #endif

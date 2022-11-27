@@ -1,11 +1,15 @@
 #pragma once
 
-#include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
+#include <Eigen/Dense>
+
 
 #include "../ray/ray.hpp"
 #include "geometry.hpp"
+
+using Eigen::Vector3d;
+
 
 namespace Tracey {
 
