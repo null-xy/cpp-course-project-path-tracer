@@ -5,6 +5,9 @@
 #include "../constants.hpp"
 #include "../geometry/geometry.hpp"
 #include "../ray/ray.hpp"
+#include "texture.hpp"
+
+using Eigen::Vector3d;
 
 using Eigen::Vector3d;
 
@@ -13,6 +16,9 @@ class Material {
  public:
   virtual bool Scatter(const Ray &ray, const Hit_Record &hit,
                        Vector3d &attenuation, Ray &scattered_ray) const = 0;
+  virtual Vector3d Emitted(double u, double v, const Vector3d &point) const {
+    return Vector3d(0, 0, 0);
+  }
 };
 /**
  * @brief Construct a new Lambertian Material object
@@ -32,7 +38,8 @@ class Lambertian : public Material {
     }
 
     scattered_ray = Ray(rec.p, ray_direction);
-    attenuation = albedo_;
+    attenuation = albedo_->Color(rec.u, rec.v, rec.p);
+    // attenuation = albedo_;
     return true;
   }
 

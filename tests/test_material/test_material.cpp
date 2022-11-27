@@ -14,16 +14,22 @@ int main() {
   int h = static_cast<int>(w / aspectRatio);
 
   // material
-  auto material_ground =
-      std::make_shared<Tracey::Lambertian>(Vector3d(0.8, 0.8, 0.0));
+  Vector3d background(0,0,0);
+  auto pointlight = std::make_shared<Tracey::LightSource>(Vector3d(4,4,4));
+
+auto material_ground = std::make_shared<Tracey::ChessBoardTexture>(Vector3d(0.2, 0.3, 0.1),Vector3d(0.9, 0.9, 0.9));
+  //auto material_ground =
+  //    std::make_shared<Tracey::Lambertian>(Vector3d(0.8, 0.8, 0.0));
   auto material_sphere_0 =
       std::make_shared<Tracey::Metal>(Vector3d(0.8, 0.6, 0.2), 0.3);
   auto material_sphere_1 =
       std::make_shared<Tracey::Lambertian>(Vector3d(0.7, 0.3, 0.3));
   //
-  auto material_sphere_2 = std::make_shared<Tracey::Glass>(Vector3d(0.8, 0.8, 0.8),0.3,2.4);
+  auto material_sphere_2 = std::make_shared<Tracey::Glass>(Vector3d(0.8, 0.8, 0.8),0.0,1.3);
   // scene
   Tracey::GeometryList scene;
+    scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.5, 1.5, -0.5), 0.5,
+                                             pointlight));
   scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, 0.0, -1.0), 0.5,
                                              material_sphere_0));
   scene.add(std::make_shared<Tracey::Sphere>(Vector3d(-1.0, 0.0, -1.0), 0.5,
@@ -33,11 +39,11 @@ int main() {
   // radius<0 to make a empty sphere inside the glass sphere
   // scene.add(std::make_shared<Tracey::Sphere>(Vector3d(1.0, 0.0, -1.0), -0.4,
   //                                           material_sphere_2));
-  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100,
-                                             material_ground));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.0, -100.5, -1.0), 100, std::make_shared<Tracey::Lambertian>(material_ground)
+                                             ));
 
-  Vector3d origin(0.0, 0.0, 0.0);
-  Tracey::Camera cam(w, h, origin, 90.0);
+  Vector3d origin(0.0, 0.0, 2.0);
+  Tracey::Camera cam(w, h, origin, 50.0);
 
   out << "P3\n" << w << ' ' << h << "\n255\n";
 
@@ -47,7 +53,7 @@ int main() {
       Vector3d pixel_color(0, 0, 0);
       for (int s = 0; s < samples_per_pixel; ++s) {
         Tracey::Ray r = cam.get_direction(i, j);
-        pixel_color += Tracey::RayColor(r, scene, max_depth);
+        pixel_color += Tracey::RayColor(r,background, scene, max_depth);
       }
       Tracey::WirteColor(out, pixel_color, samples_per_pixel);
     }

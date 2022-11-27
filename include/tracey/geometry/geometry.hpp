@@ -16,6 +16,8 @@ struct Hit_Record {
   Vector3d p;
   Vector3d normal;
   double t;
+  double u;
+  double v;
   bool pointsOut;
   shared_ptr<Material> material_prt;
 
