@@ -27,7 +27,10 @@ class Material {
  */
 class Lambertian : public Material {
  public:
-  Lambertian(const Vector3d &albedo) : albedo_(albedo) {}
+  Lambertian(const Vector3d &albedo)
+      : albedo_(std::make_shared<SolidTexture>(albedo)) {}
+  Lambertian(std::shared_ptr<Texture> albedo) : albedo_(albedo) {}
+
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &scattered_ray) const override {
     Vector3d ray_direction = rec.normal + random_in_unit_sphere().normalized();
@@ -44,7 +47,7 @@ class Lambertian : public Material {
   }
 
  private:
-  Vector3d albedo_;
+    std::shared_ptr<Texture> albedo_;
 };
 
 /**

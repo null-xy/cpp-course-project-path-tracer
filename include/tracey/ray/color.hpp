@@ -26,6 +26,15 @@ void WirteColor(std::ostream &out, Vector3d pixel_color,
       << static_cast<int>(256 * Clamp(g, 0.0, 0.999)) << ' '
       << static_cast<int>(256 * Clamp(b, 0.0, 0.999)) << '\n';
 }
+  /**
+   * @brief Rendering the color of the Ray
+   * 
+   * @param r direction for incoming ray
+   * @param background default background color vector, normally 0,0,0
+   * @param scene geometry list
+   * @param dept ray iteration limitation
+   * @return a ray vector
+   */
 
 Vector3d RayColor(const Ray &r, const Vector3d& background, const Geometry &scene, int depth) {
   Hit_Record rec;
