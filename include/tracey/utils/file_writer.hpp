@@ -25,6 +25,11 @@ class FileWriter {
     std::ofstream file;
     file.open(file_, std::fstream::out);
 
+    if (!file.good()) {
+      std::cerr << "error writing file" << std::endl;
+      return;
+    }
+
     int width = image_[0].size();
     int height = image_.size();
 
@@ -49,11 +54,6 @@ class FileWriter {
     double r = sqrt(scale * color(0));
     double g = sqrt(scale * color(1));
     double b = sqrt(scale * color(2));
-
-    if (!file.good()) {
-      std::cerr << "error writing file" << std::endl;
-      return;
-    }
 
     file << static_cast<int>(256 * Clamp(r, 0.0, 0.999)) << ' '
          << static_cast<int>(256 * Clamp(g, 0.0, 0.999)) << ' '

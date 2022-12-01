@@ -35,6 +35,8 @@ class Box : public Geometry {
         dimensions_(std::array<double, 3>{hw, hh, hd}),
         material_(material) {}
 
+
+  //change dimensions type to vector!!!!
   Box(Vector3d origin, std::array<Vector3d, 3> base, std::array<double, 3> dim, std::shared_ptr<Material> material)
       : origin_(origin), base_(base), dimensions_(dim), material_(material) {}
 

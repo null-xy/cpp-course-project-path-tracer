@@ -49,22 +49,11 @@ class Camera {
     Vector3d dir(xx, yy, -1);
     return Ray(origin_, dir.normalized());
   }
-
+  
  private:
-  const int width_, height_;
+  int width_, height_;
   Vector3d origin_;
   double angle_;
 };
-
-const Camera from_json(const json& cam) {
-  int h = cam.value("height", 0);
-  int w = cam.value("width", 0);
-  int fov = cam.value("fov", 0);
-  double x = cam.value("x", 0);
-  double y = cam.value("x", 0);
-  double z = cam.value("x", 0);
-
-  return Camera(h, w, Vector3d(x, y, z), fov);
-}
 
 }  // namespace Tracey
