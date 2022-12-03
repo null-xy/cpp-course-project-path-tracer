@@ -43,7 +43,7 @@ int main() {
       Vector3d pixel_color(0, 0, 0);
       Tracey::Ray r = cam.get_direction(i, j);
       for (int s = 0; s < samples_per_pixel; ++s) {
-        pixel_color += Tracey::RayColor(r, scene, max_depth);
+        pixel_color += Tracey::RayColor(r, Vector3d(0.2, 0.2, 0.6), scene, max_depth);
       }
       pixelRow.push_back(pixel_color);
     }
