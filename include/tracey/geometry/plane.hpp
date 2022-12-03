@@ -28,13 +28,17 @@ class Plane : public Geometry {
 
   bool intersect(const Ray& ray, double t_min, double t_max,
                  Hit_Record& rec) const {
-    if (intersect_plane(ray, t_min, t_max, rec)) {
+
+    //disc plane implementation in comment
+    /*if (intersect_plane(ray, t_min, t_max, rec)) {
       Vector3d p = rec.p;
       Vector3d v = p - origin_;
       float d2 = v.dot(v);
       return sqrt(d2) <= radius_;
     }
-    return false;
+    return false;*/
+
+    return intersect_plane(ray, t_min, t_max, rec);
   }
 
  private:
