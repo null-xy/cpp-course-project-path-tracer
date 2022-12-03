@@ -51,7 +51,7 @@ dkms.conf
 /build
 
 # input files
-*.json
+/json
 
 # output files
 *.ppm

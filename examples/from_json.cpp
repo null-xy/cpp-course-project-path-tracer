@@ -7,7 +7,7 @@
 int main() {
   std::vector<std::vector<Vector3d>> image;
   //insert full path to file
-  std::string filename = "/mnt/c/Users/Aleksi/Documents/Koulu/cpp-course-project-path-tracer/sphere.json";
+  std::string filename = "/mnt/c/Users/Aleksi/Documents/Koulu/cpp-course-project-path-tracer/json/sphere_light.json";
   auto reader = Tracey::FileReader::create(filename);
   Tracey::Scene scene;
   Tracey::from_reader(scene, reader);

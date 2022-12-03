@@ -8,6 +8,7 @@
 #include "camera.hpp"
 #include "geometry/geometry.hpp"
 #include "geometry/geometry_list.hpp"
+#include "ray/light_source.hpp"
 #include "reader.hpp"
 
 using json = nlohmann::json;
@@ -95,6 +96,12 @@ class Scene {
     auto texture = texture_from_json(texture_obj);
     auto material = std::make_shared<Tracey::Lambertian>(texture);
     return material;
+    }
+
+    if (type == "light") {
+    Vector3d albedo = vector_from_json(material_obj.at("albedo"));
+    auto light = std::make_shared<Tracey::LightSource>(albedo);
+    return light;
     }
 
     return nullptr;
