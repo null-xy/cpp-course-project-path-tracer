@@ -31,8 +31,16 @@ class Camera {
    */
   Camera(const int width, const int height, const Vector3d& origin,
          const double fov)
-      : width_(width), height_(height), origin_(origin) {
+      : width_(width), height_(height), fov_(fov), origin_(origin) {
     angle_ = std::tan(constants::pi * 0.5 * fov / 180.0);
+  }
+
+  Camera(const Tracey::Camera& cam) {
+    width_ = cam.width_;
+    height_ = cam.height_;
+    origin_ = cam.origin_;
+    fov_ = cam.fov_;
+    angle_ = cam.angle_;
   }
 
   /**
@@ -49,9 +57,34 @@ class Camera {
     Vector3d dir(xx, yy, -1);
     return Ray(origin_, dir.normalized());
   }
+
+  int get_width() const {
+    return width_;
+  }
+
+  int get_height() const {
+    return height_;
+  }
+
+  int get_fov() const {
+    return fov_;
+  }
+
+  Vector3d get_origin() const {
+    return origin_;
+  }
+
+  Camera operator=(const Tracey::Camera& cam) {
+    width_ = cam.width_;
+    height_ = cam.height_;
+    origin_ = cam.origin_;
+    fov_ = cam.fov_;
+    angle_ = cam.angle_;
+    return *this;
+  }
   
  private:
-  int width_, height_;
+  int width_, height_, fov_;
   Vector3d origin_;
   double angle_;
 };
