@@ -1,8 +1,8 @@
+#include "tracey.hpp"
+
 #include <filesystem>
 #include <iostream>
 #include <memory>
-
-#include "tracey.hpp"
 /*
 namespace Tracey {
 
@@ -29,23 +29,23 @@ int main(int argc, char *argv[]) {
   Tracey::Scene scene;
 
   // 5. populate scene with objects using reader
-  //Tracey::Scene::from_reader(scene, reader);
+  // Tracey::Scene::from_reader(scene, reader);
   Tracey::from_reader(scene, reader);
 
   // 6. create path tracer
-  // Tracey::PathTracer path_tracer;
+  Tracey::PathTracer path_tracer;
 
   // 7. create result object
-  // Tracey::Result result;
+  Tracey::Result result(100);
 
   // 8. render scene using path tracer
-  // Tracey::PathTracer::render(result, path_tracer, scene);
+  Tracey::PathTracer::render(result, scene);
 
   // 9. create output file writer
-  // Tracey::FileWriter writer(cli.get_output_file());
+  Tracey::FileWriter writer(cli.get_output_file());
 
   // 10. write result to file using writer
-  // writer.write(result);
+  writer.write_file(result);
 
   return 0;
 }

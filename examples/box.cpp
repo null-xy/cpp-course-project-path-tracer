@@ -11,10 +11,8 @@ int main() {
 
   // image
   double aspectRatio = 16.0 / 9.0;
-  int w = 100;
+  int w = 400;
   int h = static_cast<int>(w / aspectRatio);
-  int samples_per_pixel = 100;
-  int max_depth = 50;
 
   // scene
   Tracey::GeometryList scene;
@@ -30,29 +28,21 @@ int main() {
   std::shared_ptr<Tracey::Material> material =
       std::make_shared<Tracey::Lambertian>(Vector3d(0.7, 0.3, 0.3));
 
+  auto pointlight = std::make_shared<Tracey::LightSource>(Vector3d(4.0, 4.0, 4.0));
+  scene.add(std::make_shared<Tracey::Sphere>(Vector3d(0.5, 1.5, -0.5), 0.5,
+                                             pointlight));
+
   scene.add(std::make_shared<Tracey::Box>(Vector3d(0.0, 0.0, -2.0), vec, dim,
                                           material));
 
   Vector3d origin(0.0, 0.0, 1.0);
   Tracey::Camera cam(w, h, origin, 45.0);
 
-  for (int j = h - 1; j >= 0; j--) {
-    std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
-    std::vector<Vector3d> pixelRow;
-    for (int i = 0; i < w; i++) {
-      Vector3d pixel_color(0, 0, 0);
-      Tracey::Ray r = cam.get_direction(i, j);
-      for (int s = 0; s < samples_per_pixel; ++s) {
-        pixel_color += Tracey::RayColor(r, Vector3d(0.2, 0.2, 0.6), scene, max_depth);
-      }
-      pixelRow.push_back(pixel_color);
-    }
-    image.push_back(pixelRow);
-  }
-  std::cerr << "Done" << std::endl;
-
-  Tracey::FileWriter fw("out.ppm", image, "../../output/");
-  fw.write_file(samples_per_pixel);
+  Tracey::Scene s(cam, scene);
+  Tracey::Result result(100);
+  Tracey::PathTracer::render(result, s);
+  Tracey::FileWriter writer("out.ppm");
+  writer.write_file(result);
 
   return 0;
 }

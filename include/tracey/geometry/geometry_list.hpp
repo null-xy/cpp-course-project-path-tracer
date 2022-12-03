@@ -35,6 +35,14 @@ public:
    */
   void add(std::shared_ptr<Geometry> object) { objects_.push_back(object); }
 
+  std::vector<std::shared_ptr<Geometry>> get_objects() const {
+    return objects_; 
+  }
+
+  int size() {
+    return objects_.size(); 
+  }
+
   virtual bool intersect(const Ray &ray, double t_min, double t_max,
                          Hit_Record &rec) const override;
 

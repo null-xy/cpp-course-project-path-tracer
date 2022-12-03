@@ -18,4 +18,6 @@
 #include "ray/ray.hpp"
 #include "ray/light_source.hpp"
 #include "reader.hpp"
+#include "result.hpp"
+#include "path_tracer.hpp"
 #include "file_writer.hpp"
