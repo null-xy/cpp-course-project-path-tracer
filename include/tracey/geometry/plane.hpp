@@ -2,6 +2,7 @@
 
 #include <Eigen/Dense>
 #include <iostream>
+#include <memory>
 
 #include "geometry.hpp"
 
@@ -12,10 +13,11 @@ namespace Tracey {
 // for now, it is just a square
 class Plane : public Geometry {
  public:
-  Plane(const Vector3d& origin, const Vector3d& normal, double radius) {
+  Plane(const Vector3d& origin, const Vector3d& normal, double radius, std::shared_ptr<Material> material) {
     origin_ = origin;
     normal_ = normal.normalized();
     radius_ = radius;
+    material_ = material;
   }
 
   Vector3d get_origin() const { return origin_; }
@@ -39,6 +41,8 @@ class Plane : public Geometry {
   Vector3d origin_;
   Vector3d normal_;
   double radius_;
+  std::shared_ptr<Material> material_;
+
   bool intersect_plane(const Ray& ray, double t_min, double t_max,
                        Hit_Record& rec) const;
 };
@@ -56,6 +60,7 @@ bool Plane::intersect_plane(const Ray& ray, double t_min, double t_max,
       rec.p = ray.at(rec.t);
       Vector3d normal = (rec.p - get_origin()) / get_radius();
       rec.set_normal(ray, normal);
+      rec.material_prt = material_;
       return true;
     }
   }

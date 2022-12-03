@@ -84,6 +84,13 @@ class Scene {
       return box;
     }
 
+    if (type == "plane") {
+      Vector3d normal = vector_from_json(params.at("normal"));
+      double radius = params.value("radius", 0.0);
+      auto plane = std::make_shared<Tracey::Plane>(origin, normal, radius, material);
+      return plane;
+    }
+
     return nullptr;
   }
 
