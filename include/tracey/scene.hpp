@@ -54,15 +54,15 @@ class Scene {
     std::string type = texture_obj.value("type", "");
 
     if (type == "solid") {
-      Vector3d color = vector_from_json(texture_obj.at("color"));
-      auto texture = std::make_shared<SolidTexture>(color);
+      Vector3d albedo = vector_from_json(texture_obj.at("albedo"));
+      auto texture = std::make_shared<SolidTexture>(albedo);
       return texture;
     }
 
     if (type == "chessboard") {
-      Vector3d color1 = vector_from_json(texture_obj.at("color1"));
-      Vector3d color2 = vector_from_json(texture_obj.at("color2"));
-      auto texture = std::make_shared<ChessBoardTexture>(color1, color2);
+      Vector3d albedo1 = vector_from_json(texture_obj.at("albedo1"));
+      Vector3d albedo2 = vector_from_json(texture_obj.at("albedo2"));
+      auto texture = std::make_shared<ChessBoardTexture>(albedo1, albedo2);
       return texture;
     }
 

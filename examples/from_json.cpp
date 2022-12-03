@@ -6,14 +6,15 @@
 
 int main() {
   std::vector<std::vector<Vector3d>> image;
-  //insert full path to file
-  std::string filename = "/mnt/c/Users/Aleksi/Documents/Koulu/cpp-course-project-path-tracer/json/sphere_light.json";
+  //insert full path to json file
+  std::string filename = "";
   auto reader = Tracey::FileReader::create(filename);
   Tracey::Scene scene;
   Tracey::from_reader(scene, reader);
 
   int samples_per_pixel = 100;
   int max_depth = 50;
+  Vector3d background(0.0, 0.0, 0.0);
 
   auto camera = scene.get_camera();
   auto list = scene.get_geometries();
@@ -26,7 +27,7 @@ int main() {
       Vector3d pixel_color(0, 0, 0);
       Tracey::Ray r = camera.get_direction(i, j);
       for (int s = 0; s < samples_per_pixel; ++s) {
-        pixel_color += Tracey::RayColor(r, Vector3d(0.749, 0.701, 0.690), list, max_depth);
+        pixel_color += Tracey::RayColor(r, background, list, max_depth);
       }
       pixelRow.push_back(pixel_color);
     }

@@ -1,0 +1,123 @@
+{
+    "camera": {
+        "width": 400,
+        "height": 225,
+        "origin": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 2.0
+        },
+        "fov": 50
+    },
+    "geometries": [
+        {
+            "type": "sphere",
+            "params": {
+                "origin": {
+                    "x": 0.5,
+                    "y": 1.5,
+                    "z": -0.5
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "light",
+                    "albedo": {
+                        "x": 4.0,
+                        "y": 4.0,
+                        "z": 4.0
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": -100.5,
+                    "z": -0.5
+                },
+                "radius": 100.0,
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "chessboard",
+                        "albedo1": {
+                            "x": 0.2,
+                            "y": 0.3,
+                            "z": 0.1
+                        },
+                        "albedo2": {
+                            "x": 0.9,
+                            "y": 0.9,
+                            "z": 0.9
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "metal",
+                    "albedo": {
+                        "x": 0.8,
+                        "y": 0.6,
+                        "z": 0.2,
+                        "fuzz": 0.3
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "params": {
+                "origin": {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "solid",
+                        "albedo": {
+                            "x": 0.7,
+                            "y": 0.3,
+                            "z": 0.3
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "params": {
+                "origin": {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "glass",
+                    "albedo": {
+                        "x": 0.77,
+                        "y": 0.02,
+                        "z": 0.3
+                    },
+                    "fuzz": 0.0,
+                    "refractive_index": 1.3
+                }
+            }
+        }
+    ]
+}
