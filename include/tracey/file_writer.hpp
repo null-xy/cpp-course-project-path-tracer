@@ -13,11 +13,22 @@ namespace Tracey {
 
 class FileWriter {
  public:
+
+  /**
+  * @brief Constuctor for FileWriter
+  * 
+  * @param filename name of file to be read
+  * @param path to file
+  */
   FileWriter(const std::string& filename, const std::string& path = "") {
     file_ = path + filename;
   }
 
-  // writes the image vector to standard output according to ppm file format
+  /**
+  * @brief writes the image that is contained in result to a file
+  * 
+  * @param result Result object that includes a container for image and a samples value
+  */
   void write_file(Result& result) {
     std::ofstream file;
     file.open(file_, std::fstream::out);
@@ -47,6 +58,14 @@ class FileWriter {
   std::string file_;
 
   // casts the vector of doubles into a valid color composed of 3 hex values
+
+  /**
+  * @brief casts the vector of doubles into a valid color composed of 3 hex values, and writes the hex values to a file
+  * 
+  * @param file that the values are written to
+  * @param color that is written to file
+  * @param samples_per_pixel samples value of Result
+  */
   void write_pixel(std::ofstream& file, Vector3d color, int samples_per_pixel) {
     // Divide the color by the number of samples.
     double scale = 1.0 / samples_per_pixel;

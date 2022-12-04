@@ -10,26 +10,37 @@ using Eigen::Vector3d;
 
 namespace Tracey {
 
-// for now, it is just a square
+/**
+ * @brief A class depicting a plane in a vector space
+ */
 class Plane : public Geometry {
  public:
-  Plane(const Vector3d& origin, const Vector3d& normal, double radius, std::shared_ptr<Material> material) {
+  Plane(const Vector3d& origin, const Vector3d& normal, double radius,
+        std::shared_ptr<Material> material) {
     origin_ = origin;
     normal_ = normal.normalized();
     radius_ = radius;
     material_ = material;
   }
 
+  /**
+   * @brief getter for origin of plane
+   */
   Vector3d get_origin() const { return origin_; }
 
+  /**
+   * @brief getter for the normal of vector
+   */
   Vector3d get_normal() const { return normal_; }
 
+  /**
+  * @brief getter for the radius of plane
+  */
   double get_radius() const { return radius_; }
 
   bool intersect(const Ray& ray, double t_min, double t_max,
                  Hit_Record& rec) const {
-
-    //disc plane implementation in comment
+    // disc plane implementation in comment
     /*if (intersect_plane(ray, t_min, t_max, rec)) {
       Vector3d p = rec.p;
       Vector3d v = p - origin_;
