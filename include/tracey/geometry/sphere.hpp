@@ -13,6 +13,10 @@ using Eigen::Vector3d;
 
 namespace Tracey {
 
+
+/**
+* @brief Sphere class
+*/
 class Sphere : public Geometry {
 public:
   /**
@@ -27,8 +31,14 @@ public:
   bool intersect(const Ray &ray, double t_min, double t_max,
                  Hit_Record &rec) const;
 
+  /**
+  * @brief getter for origin of sphere
+  */
   Vector3d get_origin() const { return origin_; }
 
+  /**
+  * @brief getter for radius of sphere
+  */
   double get_radius() const { return radius_; }
 
 private:

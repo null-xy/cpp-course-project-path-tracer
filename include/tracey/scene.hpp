@@ -26,6 +26,13 @@ class Scene {
 
   /**
    * @brief Parse a Vector3d from a json object
+   *
+   * @param vector_obj json in form:
+   *  {
+   *  "x": double,
+   *  "y": double,
+   *  "z": double
+   *  }
    */
   Vector3d vector_from_json(json vector_obj) {
     double x = vector_obj.value("x", 0.0);
@@ -37,6 +44,14 @@ class Scene {
 
   /**
    * @brief Parse a Camera object from a json object
+   *
+   * @param cam_obj json in form:
+   *  {
+   *  "width": int,
+   *  "height": int,
+   *  "origin": vector_obj
+   *  "fov": int
+   *  }
    */
   void camera_from_json(json cam_obj) {
     int w = cam_obj.value("width", 0);
@@ -48,8 +63,24 @@ class Scene {
   }
 
   /**
-  * @brief Parse a Texture object from a json object
-  */
+   * @brief Parse a Texture object from a json object
+   *
+   * @param texture_obj in form:
+   *
+   *   {
+   *   "type": "solid",
+   *   "albedo": vector_obj,
+   *   }
+   *
+   *   or:
+   *
+   *   {
+   *   "type": "chessboard",
+   *   "albedo1": vector_obj,
+   *   "albedo2": vector_obj
+   *   }
+   *
+   */
   std::shared_ptr<Tracey::Texture> texture_from_json(json texture_obj) {
     std::string type = texture_obj.value("type", "");
 
@@ -71,6 +102,37 @@ class Scene {
 
   /**
    * @brief Parse a Material object from a json object
+   *
+   * @param material_obj in form:
+   *
+   *  {
+   *  "type": "glass",
+   *  "albedo": vector_obj
+   *  "fuzz": double,
+   *  "refractive_index": double
+   *  }
+   *
+   *  or:
+   *
+   *  {
+   *  "type": "metal",
+   *  "albedo": vector_obj,
+   *  "fuzz": 0.3
+   *  }
+   *
+   *  or:
+   *
+   *  {
+   *  "type": "lambertian",
+   *  "texture": texture_obj
+   *  }
+   *
+   *  or:
+   *
+   *  {
+   *  "type": "light",
+   *  "albedo": vector_obj
+   *  }
    */
   std::shared_ptr<Tracey::Material> material_from_json(json material_obj) {
     std::string type = material_obj.value("type", "");
@@ -91,17 +153,17 @@ class Scene {
       return material;
     }
 
-    if (type == "lambertian") {    
-    json texture_obj = material_obj.at("texture");
-    auto texture = texture_from_json(texture_obj);
-    auto material = std::make_shared<Tracey::Lambertian>(texture);
-    return material;
+    if (type == "lambertian") {
+      json texture_obj = material_obj.at("texture");
+      auto texture = texture_from_json(texture_obj);
+      auto material = std::make_shared<Tracey::Lambertian>(texture);
+      return material;
     }
 
     if (type == "light") {
-    Vector3d albedo = vector_from_json(material_obj.at("albedo"));
-    auto light = std::make_shared<Tracey::LightSource>(albedo);
-    return light;
+      Vector3d albedo = vector_from_json(material_obj.at("albedo"));
+      auto light = std::make_shared<Tracey::LightSource>(albedo);
+      return light;
     }
 
     return nullptr;
@@ -109,6 +171,42 @@ class Scene {
 
   /**
    * @brief Parse a Geometry object from a json object
+   *
+   * @param geometry_obj of form:
+   *
+   *    {
+   *    "type": "sphere",
+   *    "params": {
+   *        "origin": vector_obj
+   *        "radius": double,
+   *        "material": material_obj
+   *        }
+   *    }
+   *
+   *    or:
+   *
+   *    {
+   *    "type": "box",
+   *    params: {
+   *        "origin": vector_obj,
+   *        "vec1": vector_obj,
+   *        "vec2": vector_obj,
+   *        "vec3": vector_obj,
+   *        "dimensions": vector_obj,
+   *        "material": material_obj
+   *        }
+   *    }
+   *
+   *    or:
+   *
+   *    "type": "plane",
+   *    "params": {
+   *            "origin": vector_obj
+   *            "normal": vector_obj
+   *            "radius": 0.5,
+   *            "material": material_obj
+   *        }
+   *    }
    */
   std::shared_ptr<Tracey::Geometry> geometry_from_json(json geometry_obj) {
     json params = geometry_obj.at("params");
@@ -151,6 +249,12 @@ class Scene {
   /**
    * @brief Parse a list of Geometries from a json object and add them to member
    * geometry_
+   *
+   * @param geometries_obj of form:
+   *
+   * [
+   *  geometry_obj,
+   * ]
    */
   void geometries_from_json(json geometries_obj) {
     for (auto obj : geometries_obj) {
@@ -173,7 +277,13 @@ class Scene {
   /**
    * @brief reads a json file and appends the objects to the scene
    * @param scene the scene that the objects will be added to
-   * @param reader a filereader that has read the file
+   * @param reader a filereader that has read the file in the form of:
+   * 
+   * {
+   * "camera": camera_obj,
+   * "geometries": geometries_obj
+   * }
+   * 
    * @return void, since function modifies the state of scene
    */
   friend void from_reader(Scene& scene,

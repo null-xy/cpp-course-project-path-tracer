@@ -41,13 +41,12 @@ struct Hit_Record {
 class Geometry {
 public:
   /**
-   * @brief returns a truth value indicating if a ray of light hits the sphere
-   *
-   * @param ray a ray of light
-   * @param t_min is
-   * @param t_max
-   * @param rec is a struct that holds information about the ray intersecting a
-   * geometry
+   * @brief function that determines if a ray of light hits the box or not
+   * 
+   * @param ray of light
+   * @param t_min smaller root of intersection point
+   * @param t_max larger root of intersection point
+   * @param rec a record that keeps track of the latest intersections of a ray
    * @return true if ray hits the geometry, else false
    */
   virtual bool intersect(const Ray &ray, double t_min, double t_max,

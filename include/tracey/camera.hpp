@@ -35,6 +35,9 @@ class Camera {
     angle_ = std::tan(constants::pi * 0.5 * fov / 180.0);
   }
 
+  /**
+  * @brief copy constructor
+  */
   Camera(const Tracey::Camera& cam) {
     width_ = cam.width_;
     height_ = cam.height_;
@@ -44,7 +47,7 @@ class Camera {
   }
 
   /**
-   * @brief Get the direction of a single ray.
+   * @brief Get the direction of a single ray towards pixel (x, y)
    *
    * @param x is the image x coordinate
    * @param y is the image y coordinate
@@ -58,22 +61,29 @@ class Camera {
     return Ray(origin_, dir.normalized());
   }
 
-  int get_width() const {
-    return width_;
-  }
+  /**
+   * @brief getter for width of image
+   */
+  int get_width() const { return width_; }
 
-  int get_height() const {
-    return height_;
-  }
-
-  int get_fov() const {
-    return fov_;
-  }
-
-  Vector3d get_origin() const {
-    return origin_;
-  }
-
+  /**
+   * @brief getter for height of image
+   */
+  int get_height() const { return height_; }
+  
+  /**
+   * @brief getter for fov
+   */
+  int get_fov() const { return fov_; }
+  
+  /**
+   * @brief getter for origin of camera
+   */
+  Vector3d get_origin() const { return origin_; }
+  
+  /**
+  * @brief copy constructor
+  */
   Camera operator=(const Tracey::Camera& cam) {
     width_ = cam.width_;
     height_ = cam.height_;
@@ -82,7 +92,7 @@ class Camera {
     angle_ = cam.angle_;
     return *this;
   }
-  
+
  private:
   int width_, height_, fov_;
   Vector3d origin_;

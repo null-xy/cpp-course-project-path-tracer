@@ -1,7 +1,8 @@
 #include <Eigen/Dense>
 #include <cmath>
-#include "geometry.hpp"
+
 #include "../material/material.hpp"
+#include "geometry.hpp"
 
 using Eigen::Vector3d;
 
@@ -9,10 +10,6 @@ namespace Tracey {
 
 /**
  * @brief a class depicting an oriented bounding box
- *
- * @param ray a ray of light
- * @param normal_out the normal of the ray intersecting the geometry
- * @return void
  */
 class Box : public Geometry {
  public:
@@ -35,16 +32,36 @@ class Box : public Geometry {
         dimensions_(std::array<double, 3>{hw, hh, hd}),
         material_(material) {}
 
-
-  //change dimensions type to vector!!!!
-  Box(Vector3d origin, std::array<Vector3d, 3> base, std::array<double, 3> dim, std::shared_ptr<Material> material)
+  // change dimensions type to vector!!!!
+  Box(Vector3d origin, std::array<Vector3d, 3> base, std::array<double, 3> dim,
+      std::shared_ptr<Material> material)
       : origin_(origin), base_(base), dimensions_(dim), material_(material) {}
 
+  /**
+   * @brief getter for origin
+   */
   const Vector3d get_origin() const { return origin_; }
+
+  /**
+   * @brief getter for vector basis
+   */
   const std::array<Vector3d, 3> get_base() const { return base_; }
+  
+  /**
+   * @brief getter for a vector in vector basis
+   */
   const Vector3d get_base(unsigned int i) const { return base_[i]; }
+
+  /**
+   * @brief getter for dimensions of box
+   */
   const std::array<double, 3> get_dim() const { return dimensions_; }
+
+  /**
+   * @brief getter for one dimension of box
+   */
   double get_dim(unsigned int i) const { return dimensions_[i]; }
+
   bool intersect(const Ray& ray, double t_min, double t_max,
                  Hit_Record& rec) const;
 
@@ -63,10 +80,10 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
   for (unsigned int i = 0; i < base_.size(); i++) {
     Vector3d vec = base_[i];
     double dim = dimensions_[i];
-
     double r = vec.dot(origin_ - ray.get_origin());
-
     double denominator = vec.dot(ray.get_direction());
+
+    // check if the ray hits a side of the box nearly perpendicularly
     if (abs(denominator) < 1e-10) {
       if ((-r - dim > 0) || (-r + dim > 0)) {
         // ray misses the box

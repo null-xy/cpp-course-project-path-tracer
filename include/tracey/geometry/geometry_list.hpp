@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Eigen/Dense>
-
 #include <memory>
 #include <vector>
 
@@ -11,8 +10,11 @@ using Eigen::Vector3d;
 
 namespace Tracey {
 
+/**
+ * @brief a container class for geometry shared pointers
+ */
 class GeometryList : public Geometry {
-public:
+ public:
   /**
    * @brief Construct a new Camera object
    */
@@ -35,18 +37,22 @@ public:
    */
   void add(std::shared_ptr<Geometry> object) { objects_.push_back(object); }
 
+  /**
+   * @brief getter for the container
+   */
   std::vector<std::shared_ptr<Geometry>> get_objects() const {
-    return objects_; 
+    return objects_;
   }
 
-  int size() {
-    return objects_.size(); 
-  }
+  /**
+   * @brief getter for soze of the container
+   */
+  int size() { return objects_.size(); }
 
   virtual bool intersect(const Ray &ray, double t_min, double t_max,
                          Hit_Record &rec) const override;
 
-private:
+ private:
   std::vector<std::shared_ptr<Geometry>> objects_;
 };
 
@@ -66,4 +72,4 @@ bool GeometryList::intersect(const Ray &ray, double t_min, double t_max,
 
   return objectHit;
 }
-} // namespace Tracey
+}  // namespace Tracey
