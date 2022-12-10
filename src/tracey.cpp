@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
   Tracey::from_reader(scene, reader);
 
   // 6. create path tracer
-  Tracey::PathTracer path_tracer;
+  // Tracey::PathTracerMT path_tracer;
 
   // 7. create result object
   Tracey::Result result(100);
