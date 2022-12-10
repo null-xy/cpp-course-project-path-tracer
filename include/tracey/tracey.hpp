@@ -20,4 +20,5 @@
 #include "reader.hpp"
 #include "result.hpp"
 #include "path_tracer.hpp"
+#include "path_tracer_mt.hpp"
 #include "file_writer.hpp"
