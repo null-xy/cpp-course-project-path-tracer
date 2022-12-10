@@ -32,6 +32,8 @@ if(WITH_EIGEN)
 endif()
 message(STATUS "Finding external libraries - done")
 
+find_package(Threads)
+
 option(BUILD_DOCUMENTATION "Build documentation" ON)
 
 if(BUILD_DOCUMENTATION)
@@ -46,6 +48,7 @@ endif()
 
 add_library(Tracey INTERFACE)
 target_include_directories(Tracey INTERFACE include/tracey)
+target_link_libraries(Tracey INTERFACE Threads::Threads)
 
 if(WITH_EIGEN)
   target_link_libraries(Tracey INTERFACE Eigen3::Eigen)
