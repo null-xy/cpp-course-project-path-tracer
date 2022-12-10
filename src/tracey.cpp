@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   Tracey::Result result(100);
 
   // 8. render scene using path tracer
-  Tracey::PathTracer::render(result, scene);
+  Tracey::PathTracerMT::render(result, scene);
 
   // 9. create output file writer
   Tracey::FileWriter writer(cli.get_output_file());
