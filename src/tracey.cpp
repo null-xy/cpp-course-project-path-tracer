@@ -3,13 +3,7 @@
 #include <filesystem>
 #include <iostream>
 #include <memory>
-/*
-namespace Tracey {
 
-class Scene {};
-
-} // namespace Tracey
-*/
 int main(int argc, char *argv[]) {
   std::cout << "Tracey - The Next Generation Path Tracer" << std::endl;
 

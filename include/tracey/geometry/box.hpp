@@ -83,14 +83,6 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
     double r = vec.dot(origin_ - ray.get_origin());
     double denominator = vec.dot(ray.get_direction());
 
-    // check if the ray hits a side of the box nearly perpendicularly
-    if (abs(denominator) < 1e-10) {
-      if ((-r - dim > 0) || (-r + dim > 0)) {
-        // ray misses the box
-        return false;
-      }
-    }
-
     double t0 = (r + dim) / denominator;
     double t1 = (r - dim) / denominator;
 
@@ -123,7 +115,7 @@ bool Box::intersect(const Ray& ray, double t_min, double t_max,
     rec.t = t_far;
   }
   rec.p = ray.at(rec.t);
-  Vector3d normal = (rec.p - get_origin()).normalized();
+  Vector3d normal = (rec.p - origin_).normalized();
   rec.set_normal(ray, normal);
   rec.material_prt = material_;
   return true;

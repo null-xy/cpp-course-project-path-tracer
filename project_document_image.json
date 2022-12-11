@@ -1,0 +1,336 @@
+{
+    "camera": {
+        "width": 1920,
+        "height": 1080,
+        "origin": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 5.0
+        },
+        "fov": 50
+    },
+    "geometries": [
+        {
+            "type": "sphere",
+            "name": "light1",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": 5.5,
+                    "z": 1.5
+                },
+                "radius": 3,
+                "material": {
+                    "type": "light",
+                    "albedo": {
+                        "x": 4.0,
+                        "y": 4.0,
+                        "z": 4.0
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "light2",
+            "params": {
+                "origin": {
+                    "x": 1.5,
+                    "y": 7.0,
+                    "z": -1.5
+                },
+                "radius": 3,
+                "material": {
+                    "type": "light",
+                    "albedo": {
+                        "x": 4.0,
+                        "y": 4.0,
+                        "z": 4.0
+                    }
+                }
+            }
+        },
+        {
+            "type": "box",
+            "name": "ground",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": -50.5,
+                    "z": -1.0
+                },
+                "vec1": {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "vec2": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "vec3": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                "dimensions": {
+                    "x": 50.0,
+                    "y": 50.0,
+                    "z": 50.0
+                },
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "chessboard",
+                        "albedo1": {
+                            "x": 0.1,
+                            "y": 0.1,
+                            "z": 0.1
+                        },
+                        "albedo2": {
+                            "x": 0.9,
+                            "y": 0.9,
+                            "z": 0.9
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "plane",
+            "name": "wall_left",
+            "params": {
+                "origin": {
+                    "x": -3.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "normal": {
+                    "x": -1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 100.0,
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "solid",
+                        "albedo": {
+                            "x": 0.2,
+                            "y": 0.2,
+                            "z": 0.2
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "plane",
+            "name": "wall_right",
+            "params": {
+                "origin": {
+                    "x": 3.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "normal": {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 100.0,
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "solid",
+                        "albedo": {
+                            "x": 0.2,
+                            "y": 0.2,
+                            "z": 0.2
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "plane",
+            "name": "wall_back",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -3.0
+                },
+                "normal": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                "radius": 100.0,
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "solid",
+                        "albedo": {
+                            "x": 0.2,
+                            "y": 0.2,
+                            "z": 0.2
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "box",
+            "name": "solid-box",
+            "params": {
+                "origin": {
+                    "x": 2.5,
+                    "y": 0.0,
+                    "z": 1.0
+                },
+                "vec1": {
+                    "x": -2.5,
+                    "y": 0.0,
+                    "z": -1.0
+                },
+                "vec2": {
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                },
+                "vec3": {
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": -3.0
+                },
+                "dimensions": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "material": {
+                    "type": "lambertian",
+                    "texture": {
+                        "type": "solid",
+                        "albedo": {
+                            "x": 0.2,
+                            "y": 0.3,
+                            "z": 0.1
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "yellow-metal-sphere",
+            "params": {
+                "origin": {
+                    "x": -1.0,
+                    "y": 1.0,
+                    "z": -1.0
+                },
+                "radius": 1.5,
+                "material": {
+                    "type": "metal",
+                    "albedo": {
+                        "x": 0.8,
+                        "y": 0.6,
+                        "z": 0.2
+                    },
+                    "fuzz": 0.0
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "red-glass-sphere",
+            "params": {
+                "origin": {
+                    "x": 1.0,
+                    "y": -0.3,
+                    "z": 3.0
+                },
+                "radius": 0.2,
+                "material": {
+                    "type": "glass",
+                    "albedo": {
+                        "x": 0.6,
+                        "y": 0.1,
+                        "z": 0.1
+                    },
+                    "fuzz": 0.5,
+                    "refractive_index": 1.3
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "blue-glass-sphere",
+            "params": {
+                "origin": {
+                    "x": -1.2,
+                    "y": 0.0,
+                    "z": 3.0
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "glass",
+                    "albedo": {
+                        "x": 0.2,
+                        "y": 0.8,
+                        "z": 1.0
+                    },
+                    "fuzz": 0.0,
+                    "refractive_index": 1.3
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "hollow-sphere-outer",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.5
+                },
+                "radius": 0.5,
+                "material": {
+                    "type": "glass",
+                    "albedo": {
+                        "x": 0.8,
+                        "y": 0.8,
+                        "z": 0.8
+                    },
+                    "fuzz": 0.0,
+                    "refractive_index": 1.3
+                }
+            }
+        },
+        {
+            "type": "sphere",
+            "name": "hollow-sphere-inner",
+            "params": {
+                "origin": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.5
+                },
+                "radius": -0.4,
+                "material": {
+                    "type": "glass",
+                    "albedo": {
+                        "x": 0.8,
+                        "y": 0.8,
+                        "z": 0.8
+                    },
+                    "fuzz": 0.0,
+                    "refractive_index": 1.3
+                }
+            }
+        }
+    ]
+}
