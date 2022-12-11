@@ -42,7 +42,6 @@ class FileWriter {
     int samples_per_pixel = result.get_samples();
     int width = image[0].size();
     int height = image.size();
-    std::cerr << width << " " << height << std::endl;
 
     file << "P3\n" << width << ' ' << height << "\n255\n";
 

@@ -8,12 +8,17 @@
 #include "scene.hpp"
 #include "geometry/geometry.hpp"
 #include "geometry/geometry_list.hpp"
+#include <chrono>
 
 namespace Tracey {
 
 class PathTracer {
  public:
   static void render(Result& result, Scene& scene) {
+
+    // keep track of render time
+    auto start = std::chrono::system_clock::now();
+
     std::vector<std::vector<Vector3d>> image;
     int max_depth = 50;
     Vector3d background(0.0, 0.0, 0.0);
@@ -36,7 +41,9 @@ class PathTracer {
       }
       image.push_back(pixelRow);
     }
-    std::cerr << "Done" << std::endl;
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout << "Image rendered in " << elapsed_seconds.count() << " seconds" << std::endl;
     result.update_image(image);
   }
 };
