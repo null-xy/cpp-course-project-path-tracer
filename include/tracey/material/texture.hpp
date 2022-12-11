@@ -17,6 +17,9 @@ public:
   SolidTexture(Vector3d color) : color_(color) {}
 
   Vector3d Color(double u, double v, const Vector3d &point) const {
+    (void) u;
+    (void) v;
+    (void) point;
     return color_;
   }
 
@@ -45,8 +48,8 @@ public:
   }
 
 private:
-  shared_ptr<Texture> odd_;
   shared_ptr<Texture> even_;
+  shared_ptr<Texture> odd_;
 };
 } // namespace Tracey
 

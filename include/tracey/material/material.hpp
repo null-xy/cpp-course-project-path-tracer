@@ -17,6 +17,9 @@ class Material {
   virtual bool Scatter(const Ray &ray, const Hit_Record &hit,
                        Vector3d &attenuation, Ray &scattered_ray) const = 0;
   virtual Vector3d Emitted(double u, double v, const Vector3d &point) const {
+    (void) u;
+    (void) v;
+    (void) point;
     return Vector3d(0, 0, 0);
   }
 };
@@ -33,6 +36,7 @@ class Lambertian : public Material {
 
   bool Scatter(const Ray &ray_input, const Hit_Record &rec,
                Vector3d &attenuation, Ray &scattered_ray) const override {
+    (void) ray_input;
     Vector3d ray_direction = rec.normal + random_in_unit_sphere().normalized();
     if (fabs(ray_direction.x()) < constants::near_zero &&
         fabs(ray_direction.y()) < constants::near_zero &&
